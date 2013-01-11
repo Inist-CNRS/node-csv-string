@@ -1,0 +1,32 @@
+{
+  "name": "csv-tools",
+  "version": "1.0.0",
+  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+  "contributors": [ ],
+  "description": "Javascript tolerant tools for any kind of CSV",
+  "tags": [
+    "csv",
+    "parser",
+    "string",
+    "generator"
+  ],
+  "homepage": "http://github.com/touv/node-csv-tools",
+  "scripts": {
+    "test": "mocha"
+  },
+  "main": "./index.js",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/touv/node-csv-tools.git"
+  },
+  "dependencies": {
+  },
+  "devDependencies": {
+    "mocha": ">=1.8.1",
+    "should": ">=1.2.1"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=0.6.0"
+  }
+}
