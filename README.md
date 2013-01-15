@@ -29,6 +29,61 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 # API Documentation
 
+## parse(input : String, [separtor : String]) : Object
+
+Parse an string that contains CSV.
+```javascript
+	var CSV = require('csv-string'),
+	 arr = CSV.parse('a,b,c\na,b,c');
+
+	console.log(arr);
+```
+Output:
+	
+	[ [ 'a', 'b', 'c' ], [ 'a', 'b', 'c' ] ]
+	
+	
+## stringify(input : Object, [separtor : String]) : String
+
+Converts `input` to a CSV string. 
+
+```javascript
+	var CSV = require('csv-string');
+	
+	console.log(CSV.stringify(['a', 'b', 'c']));
+	console.log(CSV.stringify([['c', 'd', 'e'], ['c','d','e']]));
+	console.log(CSV.stringify({a:'e', b:'f', c:'g'}));
+```
+Output:
+	
+	a,b,c
+	
+	c,d,e
+	c,d,e
+	
+	e,f,g
+
+## detect(input : String) : String
+
+Detect the best separator.
+
+```javascript
+	var CSV = require('csv-string');
+	
+	console.log(CSV.detect('a,b,c'));
+	console.log(CSV.detect('a;b;c'));
+	console.log(CSV.detect('a|b|c'));
+	console.log(CSV.detect('a\tb\tc'));
+```
+Output:
+	
+	,
+	;
+	|
+	\t
+	
+
+
 
 # Also
 
@@ -38,4 +93,4 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 # License
 
-[MIT/X11](./LICENSE)
+[MIT/X11](https://github.com/touv/node-csv-string/blob/master/LICENSE)
