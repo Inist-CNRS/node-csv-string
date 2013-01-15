@@ -1,9 +1,9 @@
 
-# XMLWriter for NodeJS
+# Javascript CSV Strings
 
-[![Build Status](https://secure.travis-ci.org/touv/node-csv-tools.png?branch=master)](http://travis-ci.org/touv/node-csv-tools)
+[![Build Status](https://secure.travis-ci.org/touv/node-csv-string.png?branch=master)](http://travis-ci.org/touv/node-csv-string)
 
-It's a collection of javascript tools for any kind of CSV. It tries to be tolerant. 
+It's a collection of javascript tools for strings conatins any kind of CSV. It tries to be tolerant. 
 It can be used in a browser or with nodejs.
 
 ## Contributors

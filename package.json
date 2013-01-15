@@ -1,23 +1,23 @@
 {
-  "name": "csv-tools",
+  "name": "csv-string",
   "version": "1.0.0",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "contributors": [ ],
-  "description": "Javascript tolerant tools for any kind of CSV",
+  "description": "Javascript tolerant tools for strings that contains any kind of CSV",
   "tags": [
     "csv",
     "parser",
     "string",
     "generator"
   ],
-  "homepage": "http://github.com/touv/node-csv-tools",
+  "homepage": "http://github.com/touv/node-csv-string",
   "scripts": {
     "test": "mocha"
   },
   "main": "./index.js",
   "repository": {
     "type": "git",
-    "url": "https://github.com/touv/node-csv-tools.git"
+    "url": "https://github.com/touv/node-csv-string.git"
   },
   "dependencies": {
   },

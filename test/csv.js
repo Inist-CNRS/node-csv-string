@@ -163,11 +163,32 @@ describe('CSV', function () {
         );
       }
     );
+    describe('#1 forEach()', function () {
+        it('should', function() {
+            var i = 0;
+            CSV.forEach('a,b,c\nd,e,f\ng,h,i', ',', function(row, index) {
+                index.should.equal(i++);
+                if (index == 0) {
+                  row.should.eql(['a','b','c']);
+                }
+                else if (index == 1) {
+                  row.should.eql(['d','e','f']);
+                }
+                else if (index == 2) {
+                  row.should.eql(['g','h','i']);
+                }
+            });
+          }
+        );
+      }
+    );
+
     describe('#1 parse()', function () {
         it('should', function() {
             var obj = CSV.parse('a,b,c\nd,e,f\ng,h,i');
             obj[0].should.eql(['a','b','c']);
-            obj[1].should.eql(['g','h','i']);
+            obj[1].should.eql(['d','e','f']);
+            obj[2].should.eql(['g','h','i']);
           }
         );
       }
