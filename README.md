@@ -3,9 +3,9 @@
 
 [![Build Status](https://secure.travis-ci.org/touv/node-csv-string.png?branch=master)](http://travis-ci.org/touv/node-csv-string)
 
-It's a collection of javascript tools for strings conatins any kind of CSV. It tries to be tolerant. 
-It can be used in a browser or with nodejs.
-
+It's a collection of javascript tools (parse/stringify) for CSV strings. 
+Unlike many other similar modules, it works correctly with fields containing newlines (including on the first line)
+ 
 ## Contributors
 
   * [Nicolas Thouvenin](https://github.com/touv) 
@@ -14,7 +14,7 @@ It can be used in a browser or with nodejs.
 
 With [npm](http://npmjs.org) do:
 
-    $ # Coming soon
+    $ npm install cvs-string
 
 
 # Examples
@@ -31,7 +31,7 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 ## parse(input : String, [separtor : String]) : Object
 
-Parse an string that contains CSV.
+Parse `input` to convert to an array.
 ```javascript
 	var CSV = require('csv-string'),
 	 arr = CSV.parse('a,b,c\na,b,c');
@@ -65,7 +65,7 @@ Output:
 
 ## detect(input : String) : String
 
-Detect the best separator.
+Detects the best separator.
 
 ```javascript
 	var CSV = require('csv-string');
@@ -81,6 +81,48 @@ Output:
 	;
 	|
 	\t
+	
+
+## forEach(input : String, sep : String, callback : Function) 
+## forEach(input : String, callback : Function) 
+// callback(row : Array, index : Number) : undefined//
+
+Calls `callback` for each CSV row/line. The Array passed to callback contains the fields of the current row.  
+
+
+```javascript
+	var CSV = require('csv-string');
+    var data = 'a,b,c\nd,e,f';
+	CSV.forEach(data, ',', function(row, index) {
+		console.log('#' + index + ' : ', row);
+	});
+```
+Output:
+	
+	#0 :  [ 'a', 'b', 'c' ]
+	#1 :  [ 'd', 'e', 'f' ]
+	
+
+## read(input : String, sep : String, callback : Function) : Number
+## read(input : String, callback : Function) : Number
+// callback(row : Array) : undefined//
+
+Calls `callback` when a CSV row is readed. The Array passed to callback contains the fields of the row.  
+Returns the first offset after the row.
+
+
+```javascript
+	var CSV = require('csv-string');
+    var data = 'a,b,c\nd,e,f';
+	var index = CSV.read(data, ',', function(row) {
+		console.log(row);
+	});
+    console.log(data.slice(index));
+```
+Output:
+	
+	[ 'a', 'b', 'c' ]
+	d,e,f
 	
 
 
