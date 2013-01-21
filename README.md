@@ -1,4 +1,3 @@
-
 # Javascript CSV Strings
 
 [![Build Status](https://secure.travis-ci.org/touv/node-csv-string.png?branch=master)](http://travis-ci.org/touv/node-csv-string)
@@ -85,7 +84,7 @@ Output:
 
 ## forEach(input : String, sep : String, callback : Function) 
 ## forEach(input : String, callback : Function) 
-// callback(row : Array, index : Number) : undefined//
+_callback(row : Array, index : Number) : undefined_
 
 Calls `callback` for each CSV row/line. The Array passed to callback contains the fields of the current row.  
 
@@ -105,7 +104,7 @@ Output:
 
 ## read(input : String, sep : String, callback : Function) : Number
 ## read(input : String, callback : Function) : Number
-// callback(row : Array) : undefined//
+_callback(row : Array) : undefined_
 
 Calls `callback` when a CSV row is readed. The Array passed to callback contains the fields of the row.  
 Returns the first offset after the row.
