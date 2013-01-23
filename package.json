@@ -1,10 +1,10 @@
 {
   "name": "csv-string",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "contributors": [ ],
   "description": "It's a collection of javascript tools (parse/stringify) for CSV strings. Unlike many other similar modules, it works correctly with fields containing newlines (including on the first line)",
-  "tags": [
+  "keywords": [
     "csv",
     "parser",
     "string",
