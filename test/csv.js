@@ -107,7 +107,6 @@ describe('CSV', function () {
         );
       }
     );
-    /*
     describe('#1a fetch()', function () {
         it('should', function() {
             var obj = CSV.fetch('a ,\tb , c\n');
@@ -180,7 +179,6 @@ describe('CSV', function () {
         );
       }
     );
-    */
     describe('#7 fetch()', function () {
         it('should', function() {
             var obj = CSV.fetch('a,b,c\r\n"d","e","f"');
@@ -189,7 +187,6 @@ describe('CSV', function () {
         );
       }
     );
-    /*
     describe('#1 forEach()', function () {
         it('should', function() {
             var i = 0;
