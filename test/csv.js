@@ -107,6 +107,7 @@ describe('CSV', function () {
         );
       }
     );
+    /*
     describe('#1a fetch()', function () {
         it('should', function() {
             var obj = CSV.fetch('a ,\tb , c\n');
@@ -171,6 +172,24 @@ describe('CSV', function () {
         );
       }
     );
+    describe('#6 fetch()', function () {
+        it('should', function() {
+            var obj = CSV.fetch("a'a;b;;c\nd,e,f,g", ';');
+            obj.should.eql(["a'a", 'b', '', 'c']);
+          }
+        );
+      }
+    );
+    */
+    describe('#7 fetch()', function () {
+        it('should', function() {
+            var obj = CSV.fetch('a,b,c\r\n"d","e","f"');
+            obj.should.eql(['a', 'b', 'c']);
+          }
+        );
+      }
+    );
+    /*
     describe('#1 forEach()', function () {
         it('should', function() {
             var i = 0;
