@@ -3,6 +3,7 @@ var should = require('should')
 , CSV = require('../lib/csv.js');
 
 describe('CSV', function () {
+    /* */
     describe('#1 stringify()', function () {
         it('should', function() {
             var str = CSV.stringify([1,2,3]);
@@ -256,15 +257,25 @@ describe('CSV', function () {
       }
     );
 
-    describe('parse', function () {
+    describe('#2 parse()', function () {
       it('should handle escaped quotes in a cell', function () {
         var data = 'a,b,c,1,"hello ""world""",12,14'
+        var cols = CSV.parse(data)[0]
+        cols.length.should.equal(7)
+        var expected = ['a','b','c','1','hello "world"', '12', '14']
+        JSON.stringify(cols).should.equal(JSON.stringify(expected))
+      })
+    });
+
+    describe('#2 parse()', function () {
+      it('should handle escaped quotes in a cell', function () {
+        var data = 'a,b,c,1,"hello, ""world""",12,14'
         var cols = CSV.parse(data)[0]
         cols.length.should.equal(7)
         var expected = ['a','b','c','1','hello, "world"', '12', '14']
         JSON.stringify(cols).should.equal(JSON.stringify(expected))
       })
-    })
+    });
 
     describe('#1 detect()', function () {
         it('should', function() {
