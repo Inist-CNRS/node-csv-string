@@ -13,7 +13,7 @@ Unlike many other similar modules, it works correctly with fields containing new
 
 With [npm](http://npmjs.org) do:
 
-    $ npm install cvs-string
+    $ npm install csv-string
 
 
 # Examples
