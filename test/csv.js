@@ -100,6 +100,17 @@ describe('CSV', function () {
         );
       }
     );
+    describe('#13 stringify()', function() {
+        it('should', function() {
+            var header = [ 'one', 'two', 'three' ];
+            var line1 =  [ '' , 'l-two', 'l-three' ];
+            var headerCols = CSV.stringify(header).split(',').length;
+            var line1Cols = CSV.stringify(line1).split(',').length;
+            headerCols.should.equal(line1Cols);
+          }
+        );
+      }
+    );
     describe('#1 fetch()', function () {
         it('should', function() {
             var obj = CSV.fetch("a,b,c");
