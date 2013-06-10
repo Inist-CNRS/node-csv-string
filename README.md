@@ -8,6 +8,7 @@ Unlike many other similar modules, it works correctly with fields containing new
 ## Contributors
 
   * [Nicolas Thouvenin](https://github.com/touv) 
+  * [J. Baumbach](https://github.com/jbaumbach)
 
 # Installation
 
