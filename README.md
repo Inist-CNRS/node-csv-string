@@ -2,13 +2,14 @@
 
 [![Build Status](https://secure.travis-ci.org/touv/node-csv-string.png?branch=master)](http://travis-ci.org/touv/node-csv-string)
 
-It's a collection of javascript tools (parse/stringify) for CSV strings. 
+It's a collection of javascript tools (parse/stringify) for CSV strings. It can work row by row. 
 Unlike many other similar modules, it works correctly with fields containing newlines (including on the first line)
  
 ## Contributors
 
   * [Nicolas Thouvenin](https://github.com/touv) 
   * [J. Baumbach](https://github.com/jbaumbach)
+  * [Sam Hauglustaine](https://github.com/smhg)
 
 # Installation
 
@@ -17,9 +18,6 @@ With [npm](http://npmjs.org) do:
     $ npm install csv-string
 
 
-# Examples
-
-	
 # Tests
 
 Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
