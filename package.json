@@ -1,6 +1,6 @@
 {
   "name": "csv-string",
-  "version": "1.0.5",
+  "version": "1.1.0",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "contributors": [
     {
@@ -32,8 +32,7 @@
     "type": "git",
     "url": "https://github.com/touv/node-csv-string.git"
   },
-  "dependencies": {
-  },
+  "dependencies": {},
   "devDependencies": {
     "mocha": ">=1.8.1",
     "should": ">=1.2.1"
