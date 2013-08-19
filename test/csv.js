@@ -183,6 +183,14 @@ describe('CSV', function () {
         );
       }
     );
+    describe('#5c fetch()', function() {
+        it('should', function() {
+            var obj = CSV.fetch('"a,a",,"c"');
+            obj.should.eql(['a,a', '', 'c']);
+          }
+        );
+      }
+    );
     describe('#6 fetch()', function () {
         it('should', function() {
             var obj = CSV.fetch("a'a;b;;c\nd,e,f,g", ';');
