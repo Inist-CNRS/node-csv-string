@@ -10,6 +10,7 @@ Unlike many other similar modules, it works correctly with fields containing new
   * [Nicolas Thouvenin](https://github.com/touv) 
   * [J. Baumbach](https://github.com/jbaumbach)
   * [Sam Hauglustaine](https://github.com/smhg)
+  * [Rick Huizinga](https://github.com/rickhuizinga)
 
 # Installation
 
