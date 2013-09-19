@@ -215,6 +215,40 @@ describe('CSV', function () {
         );
       }
     );
+    describe('#9 fetch()', function () {
+        it('should', function () {
+            var obj = CSV.fetch('a,"b1,""b2""b3,b4""""",c\r\nd,e,f');
+            obj.should.eql(['a', 'b1,"b2"b3,b4""', 'c']);
+          }
+        );
+      }
+    );
+    describe('#10 fetch()', function () {
+        it('should', function () {
+            var obj = CSV.fetch("a,\"b1,\"\"b2\"\"b3,b4\"\"\"\"b5\r\nb6\"\r\nc,d");
+            obj.should.eql(['a', "b1,\"b2\"b3,b4\"\"b5\r\nb6"]);
+          }
+        );
+      }
+    );
+    describe('#10bis fetch()', function () {
+        it('should', function () {
+            var obj = CSV.fetch("a,\"b1,\"\"b2\"\"b3,b4\"\"\"\"b5\nb6\" \t\r\nc,d");
+            obj.should.eql(['a', "b1,\"b2\"b3,b4\"\"b5\nb6"]);
+          }
+        );
+      }
+    );
+    describe('#10ter fetch()', function () {
+        it('should', function () {
+            var obj = CSV.fetch("a,\"b1,\"\"b2\"\"b3,b4\"\"\"\"b5\nb6\" ,c\r\n,d");
+            obj.should.eql(['a', "b1,\"b2\"b3,b4\"\"b5\nb6", 'c']);
+          }
+        );
+      }
+    );
+
+
     describe('#1 forEach()', function () {
         it('should', function() {
             var i = 0;
