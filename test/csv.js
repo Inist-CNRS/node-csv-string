@@ -255,8 +255,14 @@ describe('CSV', function () {
         );
       }
     );
-
-
+    describe('#12 fetch()', function () {
+        it('should', function () {
+            var obj = CSV.fetch('a,"b",c\r\na,"b""b",c');
+            obj.should.eql(['a', 'b', 'c']);
+          }
+        );
+      }
+    );
     describe('#1 forEach()', function () {
         it('should', function() {
             var i = 0;
