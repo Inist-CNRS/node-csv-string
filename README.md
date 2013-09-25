@@ -104,7 +104,7 @@ Output:
 
 ## read(input : String, sep : String, callback : Function) : Number
 ## read(input : String, callback : Function) : Number
-_callback(row : Array) : undefined_
+_callback(row : Array) : undefined_ 
 
 Calls `callback` when a CSV row is readed. The Array passed to callback contains the fields of the row.  
 Returns the first offset after the row.
@@ -123,6 +123,53 @@ Output:
 	[ 'a', 'b', 'c' ]
 	d,e,f
 	
+
+## readAll(input : String, sep : String, callback : Function) : Number
+## readAll(input : String, callback : Function) : Number
+_callback(rows : Array) : undefined_
+
+Calls `callback` when a all CSV rows is readed. The Array passed to callback contains the rows of the file.  
+Returns the first offset after the last row.
+
+
+```javascript
+	var CSV = require('csv-string');
+    var data = 'a,b,c\nd,e,f';
+	index = CSV.readAll(data, function(row) {
+		console.log(row);
+	});
+    console.log('-' + data.slice(index) + '-');
+```
+Output:
+	
+	[ [ 'a', 'b', 'c' ], [ 'd', 'e', 'f' ] ]
+	--
+	
+## createStream(options : Array) : WritableStream
+## createStream() : WritableStream
+
+Create a writable stream for CSV chunk. Options are :
+
+* **separator** : To indicate the CSV separator. By default is comma (',')
+
+Example : Read CSV file from the standard input.
+
+```javascript
+	var stream = CSV.createStream();
+	
+	stream.on('data', function (rows) {
+	    rows.forEach(function (item) {
+	        process.stdout.write(CSV.stringify(item));
+	      }
+	    );
+	  }
+	)
+	
+	process.stdin.resume();
+	process.stdin.setEncoding('utf8');
+	process.stdin.pipe(stream);
+```
+
 
 
 
