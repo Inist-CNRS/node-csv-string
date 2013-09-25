@@ -1,6 +1,6 @@
 # Javascript CSV Strings
 
-[![Build Status](https://secure.travis-ci.org/touv/node-csv-string.png?branch=master)](http://travis-ci.org/touv/node-csv-string)
+[![Build Status](https://travis-ci.org/touv/node-csv-string.png?branch=master)](https://travis-ci.org/touv/node-csv-string)
 
 Parse and Stringify for CSV strings. It's like JSON object but for CSV. It can also work row by row. 
 And, if can parse strings, it can be use to parse files or streams too.
