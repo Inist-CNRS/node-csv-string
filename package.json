@@ -16,7 +16,7 @@
       "url": "https://github.com/rickhuizinga"
     }
   ],
-  "description": "It's a collection of javascript tools (parse/stringify) for CSV strings. Unlike many other similar modules, it works correctly with fields containing newlines (including on the first line)",
+  "description": "PARSE and STRINGIFY for CSV strings. It's like JSON object but for CSV. It can also work row by row. And, if can parse strings, it can be use to parse files or streams too.",
   "keywords": [
     "csv",
     "parser",
