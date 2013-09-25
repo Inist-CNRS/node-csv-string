@@ -2,8 +2,8 @@
 
 [![Build Status](https://secure.travis-ci.org/touv/node-csv-string.png?branch=master)](http://travis-ci.org/touv/node-csv-string)
 
-It's a collection of javascript tools (parse/stringify) for CSV strings. It can work row by row. 
-Unlike many other similar modules, it works correctly with fields containing newlines (including on the first line)
+Parse and Stringify for CSV strings. It's like JSON object but for CSV. It can also work row by row. 
+And, if can parse strings, it can be use to parse files or streams too.
  
 ## Contributors
 
@@ -178,6 +178,45 @@ Example : Read CSV file from the standard input.
 * https://npmjs.org/browse/keyword/csv
 * http://www.uselesscode.org/javascript/csv/
 * https://github.com/archan937/csonv.js
+
+# Benchmark
+
+ 
+A for file and stream, there are many others packages that already exists. 
+To compare them, I made a very basic benchmark (see ./bench for source code)
+
+## the test
+
+```bash
+
+	time node ./SCRITPNAME.js >/dev/null
+
+```
+## the result
+
+<table>
+<thead> 
+<tr>
+<th>Package</th>
+<th>Input equal Output</th>
+<th>Time for ~1 200 000 rows</th>
+</tr>
+<tbody>
+<tr>
+<td>a-csv</td>        <td>almost</td>	<td>0m13.903s</td>
+</tr> <tr>
+<td>csv-streamer</td> <td>yes</td>	<td>0m15.599s</td>
+</tr> <tr>
+<td>csv-stream</td>   <td>yes</td>	<td>0m17.265s</td>
+</tr> <tr>
+<th>csv-string</th>   <th>yes</th>	<th>0m15.432s</th>
+</tr> <tr>
+<td>fast-csv</td>     <td>no</td>	<td>-</td>
+</tr> <tr>
+<td>nodecsv</td>      <td>yes</td>	<td>0m22.129s</td>
+</tr>
+</tbody>
+</table>
 
 # License
 
