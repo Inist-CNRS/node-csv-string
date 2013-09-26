@@ -157,11 +157,8 @@ Example : Read CSV file from the standard input.
 ```javascript
 	var stream = CSV.createStream();
 	
-	stream.on('data', function (rows) {
-	    rows.forEach(function (item) {
-	        process.stdout.write(CSV.stringify(item));
-	      }
-	    );
+	stream.on('data', function (row) {
+	     console.log(row);
 	  }
 	)
 	
