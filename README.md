@@ -129,7 +129,7 @@ Output:
 _callback(rows : Array) : undefined_
 
 Calls `callback` when a all CSV rows is readed. The Array passed to callback contains the rows of the file.  
-Returns the first offset after the last row.
+Returns the offset of the end of parsing (generaly it's the end of the input string).
 
 
 ```javascript
@@ -144,6 +144,28 @@ Output:
 	
 	[ [ 'a', 'b', 'c' ], [ 'd', 'e', 'f' ] ]
 	--
+## readChunk(input : String, sep : String, callback : Function) : Number
+## readChunk(input : String, callback : Function) : Number
+_callback(rows : Array) : undefined_
+
+Calls `callback` when a all CSV rows is readed. The last row could be ignored, because the remainder could be in another chunk. 
+The Array passed to callback contains the rows of the file. 
+Returns the offset of the end of parsing. When the last row is ignored, the offset point at the begin of row.
+
+
+```javascript
+	var CSV = require('csv-string');
+    var data = 'a,b,c\nd,e';
+	index = CSV.readChunk(data, function(row) {
+		console.log(row);
+	});
+    console.log('-' + data.slice(index) + '-');
+```
+Output:
+	
+	[ [ 'a', 'b', 'c' ] ]
+	--
+	
 	
 ## createStream(options : Array) : WritableStream
 ## createStream() : WritableStream
