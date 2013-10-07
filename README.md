@@ -28,7 +28,7 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 # API Documentation
 
-## parse(input : String, [separtor : String]) : Object
+## parse(input : String, [separator : String]) : Object
 
 Parse `input` to convert to an array.
 ```javascript
@@ -42,7 +42,7 @@ Output:
 	[ [ 'a', 'b', 'c' ], [ 'a', 'b', 'c' ] ]
 	
 	
-## stringify(input : Object, [separtor : String]) : String
+## stringify(input : Object, [separator : String]) : String
 
 Converts `input` to a CSV string. 
 
