@@ -240,3 +240,7 @@ To compare them, I made a very basic benchmark (see ./bench for source code)
 # License
 
 [MIT/X11](https://github.com/touv/node-csv-string/blob/master/LICENSE)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/touv/node-csv-string/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
