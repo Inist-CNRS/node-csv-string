@@ -342,7 +342,7 @@ describe('CSV', function () {
       })
     });
 
-    describe('#2 parse()', function () {
+    describe('#3 parse()', function () {
       it('should handle escaped quotes in a cell', function () {
         var data = 'a,b,c,1,"hello, ""world""",12,14'
         var cols = CSV.parse(data)[0]
@@ -351,6 +351,16 @@ describe('CSV', function () {
         JSON.stringify(cols).should.equal(JSON.stringify(expected))
       })
     });
+
+    describe('#4 parse()', function () {
+        it('should detect the separator if not provided as a parameter', function() {
+            var obj = CSV.parse('a;b;c\nd;e;f\ng;h;i');
+            obj[0].should.eql(['a','b','c']);
+            obj[1].should.eql(['d','e','f']);
+          }
+        );
+      }
+    );
 
     describe('#1 detect()', function () {
         it('should', function() {
