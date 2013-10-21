@@ -8,6 +8,7 @@ And, if can parse strings, it can be use to parse files or streams too.
 ## Contributors
 
   * [Nicolas Thouvenin](https://github.com/touv) 
+  * [Stéphane Gully](https://github/kerphi)
   * [J. Baumbach](https://github.com/jbaumbach)
   * [Sam Hauglustaine](https://github.com/smhg)
   * [Rick Huizinga](https://github.com/rickhuizinga)
