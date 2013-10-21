@@ -41,7 +41,8 @@ Output:
 	
 	[ [ 'a', 'b', 'c' ], [ 'a', 'b', 'c' ] ]
 	
-	
+If separator parameter is not provided, it is automatically detected.
+
 ## stringify(input : Object, [separator : String]) : String
 
 Converts `input` to a CSV string. 
