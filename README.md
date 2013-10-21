@@ -28,7 +28,7 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 # API Documentation
 
-## parse(input : String, [separtor : String]) : Object
+## parse(input : String, [separator : String]) : Object
 
 Parse `input` to convert to an array.
 ```javascript
@@ -41,8 +41,9 @@ Output:
 	
 	[ [ 'a', 'b', 'c' ], [ 'a', 'b', 'c' ] ]
 	
-	
-## stringify(input : Object, [separtor : String]) : String
+If separator parameter is not provided, it is automatically detected.
+
+## stringify(input : Object, [separator : String]) : String
 
 Converts `input` to a CSV string. 
 
@@ -240,3 +241,7 @@ To compare them, I made a very basic benchmark (see ./bench for source code)
 # License
 
 [MIT/X11](https://github.com/touv/node-csv-string/blob/master/LICENSE)
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/touv/node-csv-string/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
