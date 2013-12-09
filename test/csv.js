@@ -6,8 +6,8 @@ describe('CSV', function () {
     /* */
     describe('#1 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify([1,2,3]);
-            str.should.equal('1,2,3\r\n');
+            var str = CSV.stringify([0,1,2,3]);
+            str.should.equal('0,1,2,3\r\n');
           }
         );
       }
