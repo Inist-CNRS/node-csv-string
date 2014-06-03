@@ -12,6 +12,7 @@ And, if can parse strings, it can be use to parse files or streams too.
   * [J. Baumbach](https://github.com/jbaumbach)
   * [Sam Hauglustaine](https://github.com/smhg)
   * [Rick Huizinga](https://github.com/rickhuizinga)
+  * [doleksy1](https://github.com/doleksy1)
 
 # Installation
 
