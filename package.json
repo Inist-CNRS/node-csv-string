@@ -29,7 +29,7 @@
   ],
   "homepage": "http://github.com/touv/node-csv-string",
   "scripts": {
-    "test": "mocha"
+    "test": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha -- -R spec"
   },
   "main": "./index.js",
   "repository": {
@@ -39,7 +39,8 @@
   "dependencies": {},
   "devDependencies": {
     "mocha": ">=1.8.1",
-    "should": ">=1.2.1"
+    "should": ">=1.2.1",
+    "istanbul": "^0.3.0"
   },
   "license": "MIT",
   "engines": {
