@@ -175,7 +175,7 @@ Output:
 
 Create a writable stream for CSV chunk. Options are :
 
-* **separator** : To indicate the CSV separator. By default is comma (',')
+* **separator** : To indicate the CSV separator. By default is auto (see the detect function)
 
 Example : Read CSV file from the standard input.
 
