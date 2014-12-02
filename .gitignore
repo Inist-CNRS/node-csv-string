@@ -2,6 +2,6 @@
 *.swp
 *.swo
 README.html
-/node_modules
+node_modules
 coverage/
 *.sw?
