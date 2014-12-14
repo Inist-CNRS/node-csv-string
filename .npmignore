@@ -1,6 +1,5 @@
 .git*
 bench/
 examples/
-coverage
 test/
 *.sw?
