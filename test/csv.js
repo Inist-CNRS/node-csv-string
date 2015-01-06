@@ -111,6 +111,14 @@ describe('CSV', function () {
         );
       }
     );
+    describe('#14 stringify()', function () {
+        it('should', function() {
+            var str = CSV.stringify({a:null,b:'',c:1});
+            str.should.equal(',,1\r\n');
+          }
+        );
+      }
+    );
     describe('#1 fetch()', function () {
         it('should', function() {
             var obj = CSV.fetch("a,b,c");
