@@ -2,8 +2,10 @@
 
 [![Build Status](https://travis-ci.org/touv/node-csv-string.png?branch=master)](https://travis-ci.org/touv/node-csv-string)
 
-Parse and Stringify for CSV strings. It's like JSON object but for CSV. It can also work row by row. 
-And, if can parse strings, it can be use to parse files or streams too.
+Parse and Stringify for CSV strings.
+- API similar to the JSON parser (`CSV.parse` and `CSV.stringify`).
+- Can also work row by row.
+- Can also be used to parse strings from readable streams (e.g. file streams).
  
 ## Contributors
 
@@ -16,7 +18,7 @@ And, if can parse strings, it can be use to parse files or streams too.
 
 # Installation
 
-With [npm](http://npmjs.org) do:
+With [npm](http://npmjs.org):
 
     $ npm install csv-string
 
@@ -32,7 +34,7 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 ## parse(input : String, [separator : String]) : Object
 
-Parse `input` to convert to an array.
+Converts a CSV string `input` to array output.
 ```javascript
 	var CSV = require('csv-string'),
 	 arr = CSV.parse('a,b,c\na,b,c');
@@ -47,7 +49,7 @@ If separator parameter is not provided, it is automatically detected.
 
 ## stringify(input : Object, [separator : String]) : String
 
-Converts `input` to a CSV string. 
+Converts object `input` to a CSV string. 
 
 ```javascript
 	var CSV = require('csv-string');
@@ -109,7 +111,7 @@ Output:
 ## read(input : String, callback : Function) : Number
 _callback(row : Array) : undefined_ 
 
-Calls `callback` when a CSV row is readed. The Array passed to callback contains the fields of the row.  
+Calls `callback` when a CSV row is read. The Array passed to callback contains the fields of the row.  
 Returns the first offset after the row.
 
 
@@ -131,7 +133,7 @@ Output:
 ## readAll(input : String, callback : Function) : Number
 _callback(rows : Array) : undefined_
 
-Calls `callback` when a all CSV rows is readed. The Array passed to callback contains the rows of the file.  
+Calls `callback` when all CSV rows are read. The Array passed to callback contains the rows of the file.  
 Returns the offset of the end of parsing (generaly it's the end of the input string).
 
 
@@ -151,9 +153,9 @@ Output:
 ## readChunk(input : String, callback : Function) : Number
 _callback(rows : Array) : undefined_
 
-Calls `callback` when a all CSV rows is readed. The last row could be ignored, because the remainder could be in another chunk. 
+Calls `callback` when all CSV rows are read. The last row could be ignored, because the remainder could be in another chunk. 
 The Array passed to callback contains the rows of the file. 
-Returns the offset of the end of parsing. When the last row is ignored, the offset point at the begin of row.
+Returns the offset of the end of parsing. If the last row is ignored, the offset will point to the beginnning of the row.
 
 
 ```javascript
@@ -170,7 +172,7 @@ Output:
 	--
 	
 	
-## createStream(options : Array) : WritableStream
+## createStream(options : Object) : WritableStream
 ## createStream() : WritableStream
 
 Create a writable stream for CSV chunk. Options are :
@@ -195,7 +197,7 @@ Example : Read CSV file from the standard input.
 
 
 
-# Also
+# Related projects
 
 * https://npmjs.org/browse/keyword/csv
 * http://www.uselesscode.org/javascript/csv/
@@ -203,9 +205,7 @@ Example : Read CSV file from the standard input.
 
 # Benchmark
 
- 
-A for file and stream, there are many others packages that already exists. 
-To compare them, I made a very basic benchmark (see ./bench for source code)
+I made a very basic benchmark to compare this project to other related projects, using file streams as input. See `./bench` for source code.
 
 ## the test
 
