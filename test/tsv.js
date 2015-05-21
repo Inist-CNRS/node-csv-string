@@ -157,6 +157,12 @@ describe('TSV', function () {
         );
       }
     );
+    describe('#13 fetch()', function () {
+      it('should get simple fields containing double quotes', function () {
+        var obj = CSV.fetch('a\tthis "should" work\tb', "\t");
+        obj.should.eql(['a','this "should" work','b']);
+      });
+    });
     /*
     describe('#1 forEach()', function () {
         it('should', function() {

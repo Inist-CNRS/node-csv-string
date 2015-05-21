@@ -1,3 +1,5 @@
+/*jshint node:true,laxcomma:true*/
+/*global describe,it */
 'use strict';
 var should = require('should')
 , CSV = require('../lib/csv.js');
@@ -39,7 +41,7 @@ describe('CSV', function () {
     describe('#5 stringify()', function () {
         it('should', function() {
             var str = CSV.stringify();
-            str.should.equal('\r\n');;
+            str.should.equal('\r\n');
           }
         );
       }
@@ -87,7 +89,7 @@ describe('CSV', function () {
     describe('#11 stringify()', function () {
         it('should', function() {
             var str = CSV.stringify({a:1,b:null});
-            str.should.equal('1,\r\n');;
+            str.should.equal('1,\r\n');
           }
         );
       }
@@ -271,12 +273,18 @@ describe('CSV', function () {
         );
       }
     );
+    describe('#13 fetch()', function () {
+      it('should get simple fields containing double quotes', function () {
+        var obj = CSV.fetch('a,this "should" work,b');
+        obj.should.eql(['a','this "should" work','b']);
+      });
+    });
     describe('#1 forEach()', function () {
         it('should', function() {
             var i = 0;
             CSV.forEach('a,b,c\nd,e,f\ng,h,i', function(row, index) {
                 index.should.equal(i++);
-                if (index == 0) {
+                if (index === 0) {
                   row.should.eql(['a','b','c']);
                 }
                 else if (index == 1) {
