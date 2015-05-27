@@ -5,7 +5,6 @@ var should = require('should')
 , CSV = require('../lib/csv.js');
 
 describe('CSV', function () {
-    /* */
     describe('#1 stringify()', function () {
         it('should', function() {
             var str = CSV.stringify([0,1,2,3]);

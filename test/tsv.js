@@ -4,7 +4,6 @@ var should = require('should')
 , CSV = require('../lib/csv.js');
 
 describe('TSV', function () {
-    /* */
       describe('#1 fetch()', function () {
         it('should', function() {
           var obj = CSV.fetch("a\tb\tc", "\t");
