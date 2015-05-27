@@ -2,12 +2,12 @@
 
 [![Build Status](https://travis-ci.org/touv/node-csv-string.png?branch=master)](https://travis-ci.org/touv/node-csv-string)
 
-Parse and Stringify for CSV strings. It's like JSON object but for CSV. It can also work row by row. 
+Parse and Stringify for CSV strings. It's like JSON object but for CSV. It can also work row by row.
 And, if can parse strings, it can be use to parse files or streams too.
- 
+
 ## Contributors
 
-  * [Nicolas Thouvenin](https://github.com/touv) 
+  * [Nicolas Thouvenin](https://github.com/touv)
   * [Stéphane Gully](https://github/kerphi)
   * [J. Baumbach](https://github.com/jbaumbach)
   * [Sam Hauglustaine](https://github.com/smhg)
@@ -40,29 +40,29 @@ Parse `input` to convert to an array.
 	console.log(arr);
 ```
 Output:
-	
+
 	[ [ 'a', 'b', 'c' ], [ 'a', 'b', 'c' ] ]
-	
+
 If separator parameter is not provided, it is automatically detected.
 
 ## stringify(input : Object, [separator : String]) : String
 
-Converts `input` to a CSV string. 
+Converts `input` to a CSV string.
 
 ```javascript
 	var CSV = require('csv-string');
-	
+
 	console.log(CSV.stringify(['a', 'b', 'c']));
 	console.log(CSV.stringify([['c', 'd', 'e'], ['c','d','e']]));
 	console.log(CSV.stringify({a:'e', b:'f', c:'g'}));
 ```
 Output:
-	
+
 	a,b,c
-	
+
 	c,d,e
 	c,d,e
-	
+
 	e,f,g
 
 ## detect(input : String) : String
@@ -71,22 +71,22 @@ Detects the best separator.
 
 ```javascript
 	var CSV = require('csv-string');
-	
+
 	console.log(CSV.detect('a,b,c'));
 	console.log(CSV.detect('a;b;c'));
 	console.log(CSV.detect('a|b|c'));
 	console.log(CSV.detect('a\tb\tc'));
 ```
 Output:
-	
+
 	,
 	;
 	|
 	\t
-	
 
-## forEach(input : String, sep : String, callback : Function) 
-## forEach(input : String, callback : Function) 
+
+## forEach(input : String, sep : String, callback : Function)
+## forEach(input : String, callback : Function)
 _callback(row : Array, index : Number) : undefined_
 
 Calls `callback` for each CSV row/line. The Array passed to callback contains the fields of the current row.  
@@ -100,14 +100,14 @@ Calls `callback` for each CSV row/line. The Array passed to callback contains th
 	});
 ```
 Output:
-	
+
 	#0 :  [ 'a', 'b', 'c' ]
 	#1 :  [ 'd', 'e', 'f' ]
-	
+
 
 ## read(input : String, sep : String, callback : Function) : Number
 ## read(input : String, callback : Function) : Number
-_callback(row : Array) : undefined_ 
+_callback(row : Array) : undefined_
 
 Calls `callback` when a CSV row is readed. The Array passed to callback contains the fields of the row.  
 Returns the first offset after the row.
@@ -122,10 +122,10 @@ Returns the first offset after the row.
     console.log(data.slice(index));
 ```
 Output:
-	
+
 	[ 'a', 'b', 'c' ]
 	d,e,f
-	
+
 
 ## readAll(input : String, sep : String, callback : Function) : Number
 ## readAll(input : String, callback : Function) : Number
@@ -144,15 +144,15 @@ Returns the offset of the end of parsing (generaly it's the end of the input str
     console.log('-' + data.slice(index) + '-');
 ```
 Output:
-	
+
 	[ [ 'a', 'b', 'c' ], [ 'd', 'e', 'f' ] ]
 	--
 ## readChunk(input : String, sep : String, callback : Function) : Number
 ## readChunk(input : String, callback : Function) : Number
 _callback(rows : Array) : undefined_
 
-Calls `callback` when a all CSV rows is readed. The last row could be ignored, because the remainder could be in another chunk. 
-The Array passed to callback contains the rows of the file. 
+Calls `callback` when a all CSV rows is readed. The last row could be ignored, because the remainder could be in another chunk.
+The Array passed to callback contains the rows of the file.
 Returns the offset of the end of parsing. When the last row is ignored, the offset point at the begin of row.
 
 
@@ -165,11 +165,11 @@ Returns the offset of the end of parsing. When the last row is ignored, the offs
     console.log('-' + data.slice(index) + '-');
 ```
 Output:
-	
+
 	[ [ 'a', 'b', 'c' ] ]
 	--
-	
-	
+
+
 ## createStream(options : Array) : WritableStream
 ## createStream() : WritableStream
 
@@ -181,12 +181,12 @@ Example : Read CSV file from the standard input.
 
 ```javascript
 	var stream = CSV.createStream();
-	
+
 	stream.on('data', function (row) {
 	     console.log(row);
 	  }
 	)
-	
+
 	process.stdin.resume();
 	process.stdin.setEncoding('utf8');
 	process.stdin.pipe(stream);
@@ -203,8 +203,8 @@ Example : Read CSV file from the standard input.
 
 # Benchmark
 
- 
-A for file and stream, there are many others packages that already exists. 
+
+A for file and stream, there are many others packages that already exists.
 To compare them, I made a very basic benchmark (see ./bench for source code)
 
 ## the test
@@ -217,7 +217,7 @@ To compare them, I made a very basic benchmark (see ./bench for source code)
 ## the result
 
 <table>
-<thead> 
+<thead>
 <tr>
 <th>Package</th>
 <th>Input equal Output</th>
@@ -246,4 +246,3 @@ To compare them, I made a very basic benchmark (see ./bench for source code)
 
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/touv/node-csv-string/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
