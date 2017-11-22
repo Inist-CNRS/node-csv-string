@@ -168,46 +168,46 @@ describe('CSV', function () {
     it('should #1', function() {
       var i = 0;
       CSV.forEach('a,b,c\nd,e,f\ng,h,i', function(row, index) {
-          index.should.equal(i++);
-          if (index === 0) {
-            row.should.eql(['a', 'b', 'c']);
-          }
-          else if (index == 1) {
-            row.should.eql(['d', 'e', 'f']);
-          }
-          else if (index == 2) {
-            row.should.eql(['g', 'h', 'i']);
-          }
+        index.should.equal(i++);
+        if (index === 0) {
+          row.should.eql(['a', 'b', 'c']);
+        }
+        else if (index == 1) {
+          row.should.eql(['d', 'e', 'f']);
+        }
+        else if (index == 2) {
+          row.should.eql(['g', 'h', 'i']);
+        }
       });
     });
     it('should #2', function() {
       var i = 0;
       CSV.forEach('a,b,c\nd,e,f\ng,h,i', ',', function(row, index) {
-          index.should.equal(i++);
-          if (index == 0) {
-            row.should.eql(['a', 'b', 'c']);
-          }
-          else if (index == 1) {
-            row.should.eql(['d', 'e', 'f']);
-          }
-          else if (index == 2) {
-            row.should.eql(['g', 'h', 'i']);
-          }
+        index.should.equal(i++);
+        if (index == 0) {
+          row.should.eql(['a', 'b', 'c']);
+        }
+        else if (index == 1) {
+          row.should.eql(['d', 'e', 'f']);
+        }
+        else if (index == 2) {
+          row.should.eql(['g', 'h', 'i']);
+        }
       });
     });
     it('should', function() {
       var i = 0;
       CSV.forEach('a,b,c\nd,e,f\ng,h', ',', function(row, index) {
-          index.should.equal(i++);
-          if (index == 0) {
-            row.should.eql(['a', 'b', 'c']);
-          }
-          else if (index == 1) {
-            row.should.eql(['d', 'e', 'f']);
-          }
-          else if (index == 2) {
-            row.should.eql(['g', 'h']);
-          }
+        index.should.equal(i++);
+        if (index == 0) {
+          row.should.eql(['a', 'b', 'c']);
+        }
+        else if (index == 1) {
+          row.should.eql(['d', 'e', 'f']);
+        }
+        else if (index == 2) {
+          row.should.eql(['g', 'h']);
+        }
       });
     });
   });
@@ -252,14 +252,14 @@ describe('CSV', function () {
   describe('readAll()', function () {
     it('should #0', function() {
       CSV.readAll("A,B,C\nD,E,F", function(rows) {
-          rows.should.includeEql(['A', 'B', 'C'])
-          rows.should.includeEql(['D', 'E', 'F'])
+        rows.should.includeEql(['A', 'B', 'C'])
+        rows.should.includeEql(['D', 'E', 'F'])
       });
     });
     it('should #1', function() {
       CSV.readAll("A,B,C\nD,E,F\n", function(rows) {
-          rows.should.includeEql(['A', 'B', 'C'])
-          rows.should.includeEql(['D', 'E', 'F'])
+        rows.should.includeEql(['A', 'B', 'C'])
+        rows.should.includeEql(['D', 'E', 'F'])
       });
     });
     it('should #2', function() {
@@ -296,7 +296,4 @@ describe('CSV', function () {
       });
     });
   });
-
-    /* */
-  }
-);
+});
