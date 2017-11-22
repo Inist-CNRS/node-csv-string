@@ -1,6 +1,7 @@
 "use strict";
 /* global describe, it */
-var CSV = require('../lib/csv.js');
+var should = require('should')
+  , CSV = require('../lib/csv.js');
 
 describe('TSV', function () {
       describe('#1 fetch()', function () {

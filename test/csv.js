@@ -1,6 +1,7 @@
 /*global describe,it */
 'use strict';
-var CSV = require('../lib/csv.js');
+var should = require('should')
+  , CSV = require('../lib/csv.js');
 
 describe('CSV', function () {
     describe('#1 stringify()', function () {
