@@ -1,7 +1,6 @@
 "use strict";
 /* global describe, it */
-var should = require('should')
-, CSV = require('../lib/csv.js');
+var CSV = require('../lib/csv.js');
 
 describe('TSV', function () {
       describe('#1 fetch()', function () {
@@ -159,9 +158,10 @@ describe('TSV', function () {
     describe('#13 fetch()', function () {
       it('should get simple fields containing double quotes', function () {
         var obj = CSV.fetch('a\tthis "should" work\tb', "\t");
-        obj.should.eql(['a','this "should" work','b']);
+        obj.should.eql(['a', 'this "should" work', 'b']);
       });
     });
+
     /*
     describe('#1 forEach()', function () {
         it('should', function() {

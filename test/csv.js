@@ -1,13 +1,11 @@
-/*jshint node:true,laxcomma:true*/
 /*global describe,it */
 'use strict';
-var should = require('should')
-, CSV = require('../lib/csv.js');
+var CSV = require('../lib/csv.js');
 
 describe('CSV', function () {
     describe('#1 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify([0,1,2,3]);
+            var str = CSV.stringify([0, 1, 2, 3]);
             str.should.equal('0,1,2,3\r\n');
           }
         );
@@ -15,7 +13,7 @@ describe('CSV', function () {
     );
     describe('#2 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify(['1','2','3']);
+            var str = CSV.stringify(['1', '2', '3']);
             str.should.equal('1,2,3\r\n');
           }
         );
@@ -23,7 +21,7 @@ describe('CSV', function () {
     );
     describe('#3 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify(['"1"','2','3']);
+            var str = CSV.stringify(['"1"', '2', '3']);
             str.should.equal('"""1""",2,3\r\n');
           }
         );
@@ -31,7 +29,7 @@ describe('CSV', function () {
     );
     describe('#4 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify(['1','2','3,4']);
+            var str = CSV.stringify(['1', '2', '3,4']);
             str.should.equal('1,2,"3,4"\r\n');
           }
         );
@@ -71,7 +69,12 @@ describe('CSV', function () {
     );
     describe('#9 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify({a:1,b:2,c:3,d:4});
+            var str = CSV.stringify({
+                a: 1
+              , b: 2
+              , c: 3
+              , d: 4
+            });
             str.should.equal('1,2,3,4\r\n');
           }
         );
@@ -79,7 +82,7 @@ describe('CSV', function () {
     );
     describe('#10 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify(['a','b\nb', 'c']);
+            var str = CSV.stringify(['a', 'b\nb', 'c']);
             str.should.equal('a,"b\nb",c\r\n');
           }
         );
@@ -87,7 +90,10 @@ describe('CSV', function () {
     );
     describe('#11 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify({a:1,b:null});
+            var str = CSV.stringify({
+              a: 1
+            , b: null
+            });
             str.should.equal('1,\r\n');
           }
         );
@@ -95,7 +101,7 @@ describe('CSV', function () {
     );
     describe('#12 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify([[1,2], [3,4], [5,6]]);
+            var str = CSV.stringify([[1, 2], [3, 4], [5, 6]]);
             str.should.equal('1,2\r\n3,4\r\n5,6\r\n');
           }
         );
@@ -103,8 +109,8 @@ describe('CSV', function () {
     );
     describe('#13 stringify()', function() {
         it('should', function() {
-            var header = [ 'one', 'two', 'three' ];
-            var line1 =  [ '' , 'l-two', 'l-three' ];
+            var header = ['one', 'two', 'three'];
+            var line1 =  ['', 'l-two', 'l-three'];
             var headerCols = CSV.stringify(header).split(',').length;
             var line1Cols = CSV.stringify(line1).split(',').length;
             headerCols.should.equal(line1Cols);
@@ -114,7 +120,11 @@ describe('CSV', function () {
     );
     describe('#14 stringify()', function () {
         it('should', function() {
-            var str = CSV.stringify({a:null,b:'',c:1});
+            var str = CSV.stringify({
+                a: null
+              , b: ''
+              , c: 1
+            });
             str.should.equal(',,1\r\n');
           }
         );
@@ -275,7 +285,7 @@ describe('CSV', function () {
     describe('#13 fetch()', function () {
       it('should get simple fields containing double quotes', function () {
         var obj = CSV.fetch('a,this "should" work,b');
-        obj.should.eql(['a','this "should" work','b']);
+        obj.should.eql(['a', 'this "should" work', 'b']);
       });
     });
     describe('#1 forEach()', function () {
@@ -284,13 +294,13 @@ describe('CSV', function () {
             CSV.forEach('a,b,c\nd,e,f\ng,h,i', function(row, index) {
                 index.should.equal(i++);
                 if (index === 0) {
-                  row.should.eql(['a','b','c']);
+                  row.should.eql(['a', 'b', 'c']);
                 }
                 else if (index == 1) {
-                  row.should.eql(['d','e','f']);
+                  row.should.eql(['d', 'e', 'f']);
                 }
                 else if (index == 2) {
-                  row.should.eql(['g','h','i']);
+                  row.should.eql(['g', 'h', 'i']);
                 }
             });
           }
@@ -303,13 +313,13 @@ describe('CSV', function () {
             CSV.forEach('a,b,c\nd,e,f\ng,h,i', ',', function(row, index) {
                 index.should.equal(i++);
                 if (index == 0) {
-                  row.should.eql(['a','b','c']);
+                  row.should.eql(['a', 'b', 'c']);
                 }
                 else if (index == 1) {
-                  row.should.eql(['d','e','f']);
+                  row.should.eql(['d', 'e', 'f']);
                 }
                 else if (index == 2) {
-                  row.should.eql(['g','h','i']);
+                  row.should.eql(['g', 'h', 'i']);
                 }
             });
           }
@@ -322,13 +332,13 @@ describe('CSV', function () {
             CSV.forEach('a,b,c\nd,e,f\ng,h', ',', function(row, index) {
                 index.should.equal(i++);
                 if (index == 0) {
-                  row.should.eql(['a','b','c']);
+                  row.should.eql(['a', 'b', 'c']);
                 }
                 else if (index == 1) {
-                  row.should.eql(['d','e','f']);
+                  row.should.eql(['d', 'e', 'f']);
                 }
                 else if (index == 2) {
-                  row.should.eql(['g','h']);
+                  row.should.eql(['g', 'h']);
                 }
             });
           }
@@ -339,9 +349,9 @@ describe('CSV', function () {
     describe('#1 parse()', function () {
         it('should', function() {
             var obj = CSV.parse('a,b,c\nd,e,f\ng,h,i');
-            obj[0].should.eql(['a','b','c']);
-            obj[1].should.eql(['d','e','f']);
-            obj[2].should.eql(['g','h','i']);
+            obj[0].should.eql(['a', 'b', 'c']);
+            obj[1].should.eql(['d', 'e', 'f']);
+            obj[2].should.eql(['g', 'h', 'i']);
           }
         );
       }
@@ -352,7 +362,7 @@ describe('CSV', function () {
         var data = 'a,b,c,1,"hello ""world""",12,14'
         var cols = CSV.parse(data)[0]
         cols.length.should.equal(7)
-        var expected = ['a','b','c','1','hello "world"', '12', '14']
+        var expected = ['a', 'b', 'c', '1', 'hello "world"', '12', '14']
         JSON.stringify(cols).should.equal(JSON.stringify(expected))
       })
     });
@@ -362,7 +372,7 @@ describe('CSV', function () {
         var data = 'a,b,c,1,"hello, ""world""",12,14'
         var cols = CSV.parse(data)[0]
         cols.length.should.equal(7)
-        var expected = ['a','b','c','1','hello, "world"', '12', '14']
+        var expected = ['a', 'b', 'c', '1', 'hello, "world"', '12', '14']
         JSON.stringify(cols).should.equal(JSON.stringify(expected))
       })
     });
@@ -370,8 +380,8 @@ describe('CSV', function () {
     describe('#4 parse()', function () {
         it('should detect the separator if not provided as a parameter', function() {
             var obj = CSV.parse('a;b;c\nd;e;f\ng;h;i');
-            obj[0].should.eql(['a','b','c']);
-            obj[1].should.eql(['d','e','f']);
+            obj[0].should.eql(['a', 'b', 'c']);
+            obj[1].should.eql(['d', 'e', 'f']);
           }
         );
       }
