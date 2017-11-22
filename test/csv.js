@@ -158,7 +158,12 @@ describe('CSV', function () {
       var obj = CSV.fetch('a,this "should" work,b');
       obj.should.eql(['a', 'this "should" work', 'b']);
     });
+    it('should get simple fields containing doubled simple quotes #14', function () {
+      var obj = CSV.fetch("a,b''b,c");
+      obj.should.eql(['a', "b''b", 'c']);
+    });
   });
+
   describe('forEach()', function () {
     it('should #1', function() {
       var i = 0;
