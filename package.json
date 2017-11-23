@@ -38,9 +38,10 @@
   },
   "dependencies": {},
   "devDependencies": {
+    "eslint": "^4.11.0",
+    "istanbul": "^0.3.0",
     "mocha": ">=1.8.1",
-    "should": "^1.2.1",
-    "istanbul": "^0.3.0"
+    "should": "^1.2.1"
   },
   "license": "MIT",
   "engines": {
