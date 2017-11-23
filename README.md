@@ -1,6 +1,6 @@
 # Javascript CSV Strings
 
-[![Build Status](https://travis-ci.org/touv/node-csv-string.png?branch=master)](https://travis-ci.org/touv/node-csv-string)
+[![Build Status](https://travis-ci.org/Inist-CNRS/node-csv-string.png?branch=master)](https://travis-ci.org/Inist-CNRS/node-csv-string)
 
 Parse and Stringify for CSV strings.
 - API similar to the JSON parser (`CSV.parse` and `CSV.stringify`).
@@ -15,6 +15,7 @@ Parse and Stringify for CSV strings.
   * [Sam Hauglustaine](https://github.com/smhg)
   * [Rick Huizinga](https://github.com/rickhuizinga)
   * [doleksy1](https://github.com/doleksy1)
+  * [François Parmentier](https://github.com/parmentf)
 
 # Installation
 
@@ -240,7 +241,5 @@ I made a very basic benchmark to compare this project to other related projects,
 
 # License
 
-[MIT/X11](https://github.com/touv/node-csv-string/blob/master/LICENSE)
+[MIT/X11](https://github.com/Inist-CNRS/node-csv-string/blob/master/LICENSE)
 
-
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/touv/node-csv-string/trend.png)](https://bitdeli.com/free "Bitdeli Badge")

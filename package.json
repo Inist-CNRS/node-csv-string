@@ -18,7 +18,13 @@
     {
       "name": "Rick Huizinga",
       "url": "https://github.com/rickhuizinga"
+    },
+	{
+      "name": "François Parmentier",
+      "url": "https://github.com/parmentf"
     }
+
+
   ],
   "description": "PARSE and STRINGIFY for CSV strings. It's like JSON object but for CSV. It can also work row by row. And, if can parse strings, it can be use to parse files or streams too.",
   "keywords": [
