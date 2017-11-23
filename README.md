@@ -6,17 +6,19 @@ Parse and Stringify for CSV strings.
 - API similar to the JSON parser (`CSV.parse` and `CSV.stringify`).
 - Can also work row by row.
 - Can also be used to parse strings from readable streams (e.g. file streams).
+- tolerant with the weird data
 - ES6 support
 
 ```javascript
+
 	import { CSV } from 'csv-string';
 
-	# With String
+	// with String
 	const arr = CSV.parse('a,b,c\na,b,c');
 	const str = CSV.stringify(arr);
 
 
-	# With Stream
+	// with Stream
 	const stream = CSV.createStream();
 	stream.on('data', (rows) => {
 			process.stdout.write(CSV.stringify(rows, ','));
