@@ -55,7 +55,7 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 # API Documentation
 
-## parse(input : String, [separator : String]) : Object
+## parse(input : String, [separator : String], [quote : String]) : Object
 
 Converts a CSV string `input` to array output.
 ```javascript
@@ -110,6 +110,7 @@ Output:
 	\t
 
 
+## forEach(input : String, sep : String, quo : String, callback : Function)
 ## forEach(input : String, sep : String, callback : Function)
 ## forEach(input : String, callback : Function)
 _callback(row : Array, index : Number) : undefined_
@@ -130,6 +131,7 @@ Output:
 	#1 :  [ 'd', 'e', 'f' ]
 
 
+## read(input : String, sep : String, quo : String, callback : Function) : Number
 ## read(input : String, sep : String, callback : Function) : Number
 ## read(input : String, callback : Function) : Number
 _callback(row : Array) : undefined_
@@ -152,6 +154,7 @@ Output:
 	d,e,f
 
 
+## readAll(input : String, sep : String, quo : String, callback : Function) : Number
 ## readAll(input : String, sep : String, callback : Function) : Number
 ## readAll(input : String, callback : Function) : Number
 _callback(rows : Array) : undefined_
@@ -172,6 +175,7 @@ Output:
 
 	[ [ 'a', 'b', 'c' ], [ 'd', 'e', 'f' ] ]
 	--
+## readChunk(input : String, sep : String, quo : String, callback : Function) : Number
 ## readChunk(input : String, sep : String, callback : Function) : Number
 ## readChunk(input : String, callback : Function) : Number
 _callback(rows : Array) : undefined_
@@ -199,6 +203,7 @@ Output:
 Create a writable stream for CSV chunk. Options are :
 
 * **separator** : To indicate the CSV separator. By default is auto (see the detect function)
+* quote** : To indicate the CSVquote.
 
 Example : Read CSV file from the standard input.
 

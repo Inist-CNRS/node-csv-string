@@ -237,6 +237,18 @@ describe('CSV', function () {
             obj[0].should.eql(['a', 'b', 'c']);
             obj[1].should.eql(['d', 'e', 'f']);
         });
+        it('should #5', function() {
+            var obj = CSV.parse('a,b,c\nd,e,f\ng,h,i', ',,,,,,');
+            obj[0].should.eql(['a', 'b', 'c']);
+            obj[1].should.eql(['d', 'e', 'f']);
+            obj[2].should.eql(['g', 'h', 'i']);
+        });
+        it('should #6', function() {
+            var obj = CSV.parse('a,b,c\nd,e,f\ng,h,i', ',');
+            obj[0].should.eql(['a', 'b', 'c']);
+            obj[1].should.eql(['d', 'e', 'f']);
+            obj[2].should.eql(['g', 'h', 'i']);
+        });
     });
 
     describe('detect()', function () {
