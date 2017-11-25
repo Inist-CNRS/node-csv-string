@@ -1,6 +1,8 @@
 /* global describe, it */
 "use strict";
 var should = require('should') // eslint-disable-line no-unused-vars
+  , fs = require('fs')
+  , path = require('path')
   , CSV = require('../lib/csv.js');
 
 describe('TSV', function () {
@@ -175,6 +177,34 @@ describe('TSV', function () {
       obj.should.eql(['a', '"b"b', 'c']);
     });
   });
+
+  describe('readStream()', function () {
+    it('should #1', function() {
+      var reader = fs.createReadStream(path.resolve(__dirname, './sample.txt'));
+      var parser = CSV.createStream({ separator: '|', quote: '#' });
+      var rows = [];
+      parser.on('data', function(row) {
+        rows.push(row);
+      });
+      parser.on('end', function() {
+        should.deepEqual(rows, CSV.parse('1|2|#3|3#|4\n1|2|3|4', '|', '#'))
+      });
+      reader.pipe(parser);
+    });
+    it('should #2', function() {
+      var reader = fs.createReadStream(path.resolve(__dirname, './sample.txt'), {highWaterMark: 5});
+      var parser = CSV.createStream({ separator: '|', quote: '#'  });
+      var rows = [];
+      parser.on('data', function(row) {
+        rows.push(row);
+      });
+      parser.on('end', function() {
+        should.deepEqual(rows, CSV.parse('1|2|#3|3#|4\n1|2|3|4', '|', '#'))
+      });
+      reader.pipe(parser);
+    });
+  });
+
 
 
   /* */
