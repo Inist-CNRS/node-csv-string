@@ -10,22 +10,18 @@ Parse and Stringify for CSV strings.
 - ES6 support
 
 ```javascript
+import { CSV } from 'csv-string';
 
-	import { CSV } from 'csv-string';
+// with String
+const arr = CSV.parse('a,b,c\na,b,c');
+const str = CSV.stringify(arr);
 
-	// with String
-	const arr = CSV.parse('a,b,c\na,b,c');
-	const str = CSV.stringify(arr);
-
-
-	// with Stream
-	const stream = CSV.createStream();
-	stream.on('data', (rows) => {
-			process.stdout.write(CSV.stringify(rows, ','));
-	})
-	process.stdin.pipe(stream);
-
-
+// with Stream
+const stream = CSV.createStream();
+stream.on('data', (rows) => {
+    process.stdout.write(CSV.stringify(rows, ','));
+})
+process.stdin.pipe(stream);
 ```
 
  
@@ -59,10 +55,11 @@ Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
 
 Converts a CSV string `input` to array output.
 ```javascript
-	var CSV = require('csv-string'),
-	 arr = CSV.parse('a,b,c\na,b,c');
+var CSV = require('csv-string'),
 
-	console.log(arr);
+arr = CSV.parse('a,b,c\na,b,c');
+
+console.log(arr);
 ```
 Output:
 
@@ -75,11 +72,11 @@ If separator parameter is not provided, it is automatically detected.
 Converts object `input` to a CSV string. 
 
 ```javascript
-	var CSV = require('csv-string');
+var CSV = require('csv-string');
 
-	console.log(CSV.stringify(['a', 'b', 'c']));
-	console.log(CSV.stringify([['c', 'd', 'e'], ['c','d','e']]));
-	console.log(CSV.stringify({a:'e', b:'f', c:'g'}));
+console.log(CSV.stringify(['a', 'b', 'c']));
+console.log(CSV.stringify([['c', 'd', 'e'], ['c','d','e']]));
+console.log(CSV.stringify({a:'e', b:'f', c:'g'}));
 ```
 Output:
 
@@ -95,12 +92,12 @@ Output:
 Detects the best separator.
 
 ```javascript
-	var CSV = require('csv-string');
+var CSV = require('csv-string');
 
-	console.log(CSV.detect('a,b,c'));
-	console.log(CSV.detect('a;b;c'));
-	console.log(CSV.detect('a|b|c'));
-	console.log(CSV.detect('a\tb\tc'));
+console.log(CSV.detect('a,b,c'));
+console.log(CSV.detect('a;b;c'));
+console.log(CSV.detect('a|b|c'));
+console.log(CSV.detect('a\tb\tc'));
 ```
 Output:
 
@@ -119,11 +116,13 @@ Calls `callback` for each CSV row/line. The Array passed to callback contains th
 
 
 ```javascript
-	var CSV = require('csv-string');
-    var data = 'a,b,c\nd,e,f';
-	CSV.forEach(data, ',', function(row, index) {
-		console.log('#' + index + ' : ', row);
-	});
+var CSV = require('csv-string');
+
+var data = 'a,b,c\nd,e,f';
+
+CSV.forEach(data, ',', function(row, index) {
+  console.log('#' + index + ' : ', row);
+});
 ```
 Output:
 
@@ -141,12 +140,15 @@ Returns the first offset after the row.
 
 
 ```javascript
-	var CSV = require('csv-string');
-    var data = 'a,b,c\nd,e,f';
-	var index = CSV.read(data, ',', function(row) {
-		console.log(row);
-	});
-    console.log(data.slice(index));
+var CSV = require('csv-string');
+
+var data = 'a,b,c\nd,e,f';
+
+var index = CSV.read(data, ',', function(row) {
+  console.log(row);
+});
+
+console.log(data.slice(index));
 ```
 Output:
 
@@ -164,12 +166,15 @@ Returns the offset of the end of parsing (generaly it's the end of the input str
 
 
 ```javascript
-	var CSV = require('csv-string');
-    var data = 'a,b,c\nd,e,f';
-	index = CSV.readAll(data, function(row) {
-		console.log(row);
-	});
-    console.log('-' + data.slice(index) + '-');
+var CSV = require('csv-string');
+
+var data = 'a,b,c\nd,e,f';
+
+var index = CSV.readAll(data, function(row) {
+  console.log(row);
+});
+
+console.log('-' + data.slice(index) + '-');
 ```
 Output:
 
@@ -185,12 +190,15 @@ The Array passed to callback contains the rows of the file.
 Returns the offset of the end of parsing. If the last row is ignored, the offset will point to the beginnning of the row.
 
 ```javascript
-	var CSV = require('csv-string');
-    var data = 'a,b,c\nd,e';
-	index = CSV.readChunk(data, function(row) {
-		console.log(row);
-	});
-    console.log('-' + data.slice(index) + '-');
+var CSV = require('csv-string');
+
+var data = 'a,b,c\nd,e';
+
+var index = CSV.readChunk(data, function(row) {
+  console.log(row);
+});
+
+console.log('-' + data.slice(index) + '-');
 ```
 Output:
 
@@ -208,19 +216,17 @@ Create a writable stream for CSV chunk. Options are :
 Example : Read CSV file from the standard input.
 
 ```javascript
-	var stream = CSV.createStream();
+var stream = CSV.createStream();
 
-	stream.on('data', function (row) {
-	     console.log(row);
-	  }
-	)
+stream.on('data', function (row) {
+     console.log(row);
+  }
+)
 
-	process.stdin.resume();
-	process.stdin.setEncoding('utf8');
-	process.stdin.pipe(stream);
+process.stdin.resume();
+process.stdin.setEncoding('utf8');
+process.stdin.pipe(stream);
 ```
-
-
 
 
 # Related projects
@@ -236,10 +242,9 @@ I made a very basic benchmark to compare this project to other related projects,
 ## the test
 
 ```bash
-
-	time node ./SCRITPNAME.js >/dev/null
-
+time node ./SCRITPNAME.js >/dev/null
 ```
+
 ## the result
 
 <table>
