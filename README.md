@@ -11,7 +11,7 @@ Parse and Stringify for CSV strings.
 
 ```javascript
 
-	import { CSV } from 'csv-string';
+	import * as CSV from 'csv-string';
 
 	// with String
 	const arr = CSV.parse('a,b,c\na,b,c');
