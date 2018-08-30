@@ -27,6 +27,10 @@ describe('CSV', function () {
             var str = CSV.stringify();
             str.should.equal('\r\n');
         });
+        it('should #5bis', function() {
+            var str = CSV.stringify([]);
+            str.should.equal('\r\n');
+        });
         it('should #6', function() {
             var str = CSV.stringify('1234');
             str.should.equal('1234\r\n');
