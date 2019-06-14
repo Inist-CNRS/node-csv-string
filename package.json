@@ -33,19 +33,20 @@
   ],
   "homepage": "http://github.com/touv/node-csv-string",
   "scripts": {
-    "test": "./node_modules/.bin/istanbul test ./node_modules/.bin/_mocha -- -R spec"
+    "test": "nyc mocha -R spec"
   },
   "main": "./index.js",
   "repository": {
     "type": "git",
     "url": "https://github.com/touv/node-csv-string.git"
   },
-  "dependencies": {},
+  "dependencies": {
+    "nyc": "^14.1.1"
+  },
   "devDependencies": {
-    "eslint": "^5.4.0",
-    "istanbul": "^0.4.5",
-    "mocha": ">=1.8.1",
-    "should": "^1.2.1"
+    "eslint": "^5.16.0",
+    "mocha": "^6.1.4",
+    "should": "^13.2.3"
   },
   "license": "MIT",
   "engines": {
