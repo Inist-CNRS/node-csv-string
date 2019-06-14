@@ -267,26 +267,26 @@ describe('CSV', function () {
     describe('readAll()', function () {
         it('should #0', function() {
             CSV.readAll("A,B,C\nD,E,F", function(rows) {
-                rows.should.includeEql(['A', 'B', 'C'])
-                rows.should.includeEql(['D', 'E', 'F'])
+                rows.should.containEql(['A', 'B', 'C'])
+                rows.should.containEql(['D', 'E', 'F'])
             });
         });
         it('should #1', function() {
             CSV.readAll("A,B,C\nD,E,F\n", function(rows) {
-                rows.should.includeEql(['A', 'B', 'C'])
-                rows.should.includeEql(['D', 'E', 'F'])
+                rows.should.containEql(['A', 'B', 'C'])
+                rows.should.containEql(['D', 'E', 'F'])
             });
         });
         it('should #2', function() {
             CSV.readAll("A,B,C\nD,E,\"F\n", function(rows) {
-                rows.should.includeEql(['A', 'B', 'C'])
-                rows.should.not.includeEql(['D', 'E', 'F'])
+                rows.should.containEql(['A', 'B', 'C'])
+                rows.should.not.containEql(['D', 'E', 'F'])
             });
         });
         it('should #3', function() {
             CSV.readAll("A,B,C\nD,E", function(rows) {
-                rows.should.includeEql(['A', 'B', 'C'])
-                rows.should.includeEql(['D', 'E'])
+                rows.should.containEql(['A', 'B', 'C'])
+                rows.should.containEql(['D', 'E'])
             });
         });
     });
@@ -294,20 +294,20 @@ describe('CSV', function () {
     describe('readChunk()', function () {
         it('should #1', function() {
             CSV.readChunk("A,B,C\nD,E,F", function(rows) {
-                rows.should.includeEql(['A', 'B', 'C'])
-                rows.should.not.includeEql(['D', 'E', 'F'])
+                rows.should.containEql(['A', 'B', 'C'])
+                rows.should.not.containEql(['D', 'E', 'F'])
             });
         });
         it('should #2', function() {
             CSV.readChunk("A,B,C\nD,E,\"F\n", function(rows) {
-                rows.should.includeEql(['A', 'B', 'C'])
-                rows.should.not.includeEql(['D', 'E', 'F'])
+                rows.should.containEql(['A', 'B', 'C'])
+                rows.should.not.containEql(['D', 'E', 'F'])
             });
         });
         it('should #3', function() {
             CSV.readChunk("A,B,C\nD,E", function(rows) {
-                rows.should.includeEql(['A', 'B', 'C'])
-                rows.should.not.includeEql(['D', 'E'])
+                rows.should.containEql(['A', 'B', 'C'])
+                rows.should.not.containEql(['D', 'E'])
             });
         });
     });
