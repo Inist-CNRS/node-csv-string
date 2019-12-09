@@ -33,6 +33,7 @@
   ],
   "homepage": "http://github.com/touv/node-csv-string",
   "scripts": {
+    "lint": "eslint lib/*.js",
     "test": "nyc mocha -R spec"
   },
   "main": "./index.js",
