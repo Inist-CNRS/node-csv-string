@@ -40,12 +40,11 @@
     "type": "git",
     "url": "https://github.com/touv/node-csv-string.git"
   },
-  "dependencies": {
-    "nyc": "^14.1.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "eslint": "^5.16.0",
     "mocha": "^6.1.4",
+    "nyc": "^14.1.1",
     "should": "^13.2.3"
   },
   "license": "MIT",
