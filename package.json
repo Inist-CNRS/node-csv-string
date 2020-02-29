@@ -37,6 +37,7 @@
     "test": "nyc mocha -R spec"
   },
   "main": "./index.js",
+  "types": "./index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/touv/node-csv-string.git"
