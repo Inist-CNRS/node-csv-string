@@ -1,1 +1,1 @@
-define module 'csv-string';
+declare module 'csv-string';
