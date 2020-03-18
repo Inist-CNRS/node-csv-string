@@ -1,5 +1,6 @@
+import { Transform } from "stream";
+
 declare namespace CsvString {
-  import { Transform } from "stream";
 
   type rowElement = string | number | boolean;
   type row = rowElement[];
