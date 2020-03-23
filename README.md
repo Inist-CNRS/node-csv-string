@@ -27,6 +27,10 @@ process.stdin.pipe(stream);
 
 ## Contributors
 
+- [Mehul Mohan](https://github.com/mehulmpt)
+- [Hossam Magdy](https://github.com/hossam-magdy)
+- [Rich](https://github.com/rich-TIA)
+- [Rick Huizinga](https://github.com/rickhuizinga)
 - [Nicolas Thouvenin](https://github.com/touv)
 - [Stéphane Gully](https://github/kerphi)
 - [J. Baumbach](https://github.com/jbaumbach)
