@@ -1,3 +1,5 @@
+declare module 'csv-string';
+
 import { Transform } from "stream";
 
 declare namespace CsvString {
