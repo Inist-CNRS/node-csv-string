@@ -1,56 +1,68 @@
 {
-  "name": "csv-string",
-  "version": "3.1.8",
-  "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
-  "contributors": [
-    {
-      "name": "Stéphane Gully",
-      "url": "https://github.com/kerphi"
-    },
-    {
-      "name": "J Baumbach",
-      "url": "https://github.com/jbaumbach"
-    },
-    {
-      "name": "Sam Hauglustaine",
-      "url": "https://github.com/smhg"
-    },
-    {
-      "name": "Rick Huizinga",
-      "url": "https://github.com/rickhuizinga"
-    },
-    {
-      "name": "François Parmentier",
-      "url": "https://github.com/parmentf"
-    }
-  ],
-  "description": "PARSE and STRINGIFY for CSV strings. It's like JSON object but for CSV. It can also work row by row. And, if can parse strings, it can be use to parse files or streams too.",
-  "keywords": [
-    "csv",
-    "parser",
-    "string",
-    "generator"
-  ],
-  "homepage": "http://github.com/touv/node-csv-string",
-  "scripts": {
-    "lint": "eslint lib/*.js",
-    "test": "nyc mocha -R spec"
-  },
-  "main": "./index.js",
-  "types": "./index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/touv/node-csv-string.git"
-  },
-  "dependencies": {},
-  "devDependencies": {
-    "eslint": "^6.7.2",
-    "mocha": "^6.2.2",
-    "nyc": "^14.1.1",
-    "should": "^13.2.3"
-  },
-  "license": "MIT",
-  "engines": {
-    "node": ">=0.10.0"
-  }
+	"name": "csv-string",
+	"version": "3.1.8",
+	"author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
+	"contributors": [
+		{
+			"name": "Hossam Magdy",
+			"url": "https://github.com/hossam-magdy"
+		},
+		{
+			"name": "Rich",
+			"url": "https://github.com/rich-TIA"
+		},
+		{
+			"name": "Rich",
+			"url": "https://github.com/rich-TIA"
+		},
+		{
+			"name": "Stéphane Gully",
+			"url": "https://github.com/kerphi"
+		},
+		{
+			"name": "J Baumbach",
+			"url": "https://github.com/jbaumbach"
+		},
+		{
+			"name": "Sam Hauglustaine",
+			"url": "https://github.com/smhg"
+		},
+		{
+			"name": "Rick Huizinga",
+			"url": "https://github.com/rickhuizinga"
+		},
+		{
+			"name": "François Parmentier",
+			"url": "https://github.com/parmentf"
+		}
+	],
+	"description": "PARSE and STRINGIFY for CSV strings. It's like JSON object but for CSV. It can also work row by row. And, if can parse strings, it can be use to parse files or streams too.",
+	"keywords": [
+		"csv",
+		"parser",
+		"string",
+		"generator"
+	],
+	"homepage": "https://github.com/Inist-CNRS/node-csv-string",
+	"scripts": {
+		"lint": "eslint lib/*.js",
+		"test": "nyc mocha -R spec"
+	},
+	"main": "./index.js",
+	"types": "./index.d.ts",
+	"repository": {
+		"type": "git",
+		"url": "https://github.com/Inist-CNRS/node-csv-string.git"
+	},
+	"dependencies": {},
+	"devDependencies": {
+		"eslint": "^6.8.0",
+		"mocha": "^7.1.1",
+		"nyc": "^15.0.0",
+		"should": "^13.2.3"
+	},
+	"license": "MIT",
+	"engines": {
+		"node": ">=0.10.0"
+	}
 }
