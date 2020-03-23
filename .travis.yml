@@ -2,3 +2,8 @@ language: node_js
 node_js:
   - lts/*
   - node
+install:
+  - npm install
+cache:
+  directories:
+    - "node_modules"
