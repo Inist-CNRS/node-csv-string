@@ -1,9 +1,17 @@
-const CSV = require(__dirname + "/..");
+const { createReadStream } = require("fs");
 
 const nodecsv = require("csv");
 
-nodecsv()
-  .from.path(__dirname + "/twitter.csv")
-  .on("record", function (row) {
-    process.stdout.write(CSV.stringify(row));
-  });
+const CSV = require("..");
+
+const FILE = `${__dirname}/twitter.csv`;
+
+const parser = nodecsv.parse();
+parser.on("readable", function () {
+  let record;
+  while ((record = parser.read())) {
+    process.stdout.write(CSV.stringify(record));
+  }
+});
+
+createReadStream(FILE).pipe(parser);

@@ -1,0 +1,14 @@
+{
+  "name": "csv-string-bench",
+  "version": "1.0.0",
+  "main": "index.js",
+  "license": "MIT",
+  "private": true,
+  "dependencies": {
+    "a-csv": "^2.0.0",
+    "csv": "^5.3.2",
+    "csv-stream": "^0.2.0",
+    "csv-streamer": "^2.0.3",
+    "fast-csv": "^4.1.3"
+  }
+}

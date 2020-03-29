@@ -1,11 +1,13 @@
-const CSV = require(__dirname + "/..");
+const { createReadStream } = require("fs");
 
-const fs = require("fs");
+const CSVStream = require("csv-streamer").Reader;
 
-const CSVStream = require("csv-streamer");
-const csvs = new CSVStream({ headers: true });
+const CSV = require("..");
 
-csvs.on("data", function (line) {
+const FILE = `${__dirname}/twitter.csv`;
+const csv = new CSVStream({ headers: true });
+
+csv.on("data", (line) => {
   process.stdout.write(CSV.stringify(line));
 });
-fs.createReadStream("./twitter.csv").pipe(csvs);
+createReadStream(FILE).pipe(csv);
