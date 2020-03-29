@@ -170,7 +170,10 @@ const fetch = (input, sep?, quo?): number => {
   return output;
 };
 
-const createStream = (options): Streamer => new Streamer(options);
+const createStream = (options?: {
+  separator?: string;
+  quote?: string;
+}): Streamer => new Streamer(options);
 
 export {
   EOL as eol,

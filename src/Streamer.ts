@@ -8,7 +8,7 @@ export class Streamer extends Transform {
   sep?: string;
   quo?: string;
 
-  constructor(options: { separator?: string; quote?: string }) {
+  constructor(options?: { separator?: string; quote?: string }) {
     super({
       readableObjectMode: true,
       writableObjectMode: false,

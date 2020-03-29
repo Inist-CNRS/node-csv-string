@@ -212,5 +212,3 @@ export class Parser {
     return value;
   }
 }
-
-// module.exports = Parser;

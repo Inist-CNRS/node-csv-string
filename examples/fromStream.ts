@@ -1,8 +1,8 @@
-import * as CSV from "../";
+import * as CSV from "..";
 
 const stream = CSV.createStream();
 
-stream.on("data", function (rows) {
+stream.on("data", (rows) => {
   process.stdout.write(CSV.stringify(rows, ","));
 });
 
