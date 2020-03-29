@@ -291,14 +291,16 @@ yarn bench
 
 ### the result
 
-| Package        | Time for ~949,044 rows | Outpu/Input difference |
-| -------------- | ---------------------- | ---------------------- |
-| a-csv          | 6.01s                  | 8452/949044            |
-| csv-stream     | 6.64s                  | 257371/949044          |
-| csv-streamer   | 7.03s                  | 200594/949044          |
-| **csv-string** | **6.53s**              | **0**/949044           |
-| fast-csv       | 12.33s                 | 2/949044               |
-| nodecsv        | 7.10s                  | 0/949044               |
+for a test file with 949,044 rows
+
+| Package        | Time      | Output/Input similarity |
+| -------------- | --------- | ----------------------- |
+| a-csv          | 6.01s     | ~99%                    |
+| csv-stream     | 6.64s     | ~73%                    |
+| csv-streamer   | 7.03s     | ~79%                    |
+| **csv-string** | **6.53s** | **100%**                |
+| fast-csv       | 12.33s    | 99.99%                  |
+| nodecsv        | 7.10s     | 100%                    |
 
 ## License
 
