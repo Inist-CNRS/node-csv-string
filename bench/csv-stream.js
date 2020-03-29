@@ -6,9 +6,9 @@ var fs = require('fs');
 
 var csvStream = csv_stream.createStream();
 
-fs.createReadStream('./twitter.csv').pipe(csvStream)
-.on('data',function(data) {
-    process.stdout.write(CSV.stringify(data));
-  }
-)
-    
+fs.createReadStream('./twitter.csv').pipe(csvStream).
+    on('data', function(data) {
+        process.stdout.write(CSV.stringify(data));
+    }
+    )
+

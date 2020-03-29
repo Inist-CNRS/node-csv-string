@@ -4,7 +4,7 @@ var stream = CSV.createStream();
 
 stream.on('data', function (rows) {
     process.stdout.write(CSV.stringify(rows, ','));
-  }
+}
 )
 
 process.stdin.resume();
