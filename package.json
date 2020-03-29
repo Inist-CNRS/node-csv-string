@@ -45,34 +45,34 @@
   ],
   "homepage": "https://github.com/Inist-CNRS/node-csv-string",
   "scripts": {
-    "lint": "eslint lib/*.js",
-    "test": "nyc mocha -r ts-node/register -R spec ./test/*.{js,ts}"
+    "build": "rm -rf ./dist && tsc",
+    "lint": "eslint \"./{src,examples,bench}/**/*.{js,ts}\"",
+    "test": "jest --coverage"
   },
-  "main": "./index.js",
-  "types": "./index.d.ts",
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
   "repository": {
     "type": "git",
     "url": "https://github.com/Inist-CNRS/node-csv-string.git"
   },
   "dependencies": {},
   "devDependencies": {
-    "@istanbuljs/nyc-config-typescript": "^1.0.1",
+    "@types/jest": "^25.1.4",
     "@types/mocha": "^7.0.2",
     "@types/node": "^13.9.5",
-    "babel-eslint": "^10.1.0",
+    "@typescript-eslint/eslint-plugin": "^2.25.0",
+    "@typescript-eslint/parser": "^2.25.0",
     "eslint": "^6.8.0",
-    "mocha": "^7.1.1",
-    "nyc": "^15.0.0",
-    "should": "^13.2.3",
+    "eslint-config-prettier": "^6.10.1",
+    "eslint-plugin-prettier": "^3.1.2",
+    "jest": "^25.2.3",
+    "prettier": "^2.0.2",
+    "ts-jest": "^25.2.1",
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
   },
-  "nyc": {
-    "extends": "@istanbuljs/nyc-config-typescript",
-    "check-coverage": true
-  },
   "license": "MIT",
   "engines": {
-    "node": ">=0.10.0"
+    "node": ">=12.0"
   }
 }

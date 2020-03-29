@@ -1,192 +1,187 @@
-var Parser = require('./parser.js');
-var Streamer = require('./streamer.js');
+import { Parser } from "./Parser";
+import { Streamer } from "./Streamer";
 
-function reducer(item, memo, sep, prependSep) {
-    var foo = ''
-        , c = new RegExp(sep, 'g')
-        , q = new RegExp('"', 'g')
-        // eslint-disable-next-line no-control-regex
-        , n = new RegExp('\n', 'g');
+const reducer = (item, memo, sep, prependSep?): string => {
+  let foo = "";
+  const c = new RegExp(sep, "g"),
+    q = new RegExp('"', "g"),
+    // eslint-disable-next-line no-control-regex
+    n = new RegExp("\n", "g");
 
-    if (item === 0) {
-        item = '0';
+  if (item === 0) {
+    item = "0";
+  } else if (item === undefined || item === null) {
+    item = "";
+  }
+  if (typeof item != "string") {
+    const s = item.toString();
+    if (s == "[object Object]") {
+      item = JSON.stringify(item);
+      if (item == "{}") {
+        item = "";
+      }
+    } else {
+      item = s;
     }
-    else if (item === undefined || item ===  null) {
-        item = '';
-    }
-    if (typeof item != 'string') {
-        var s = item.toString();
-        if (s == '[object Object]') {
-            item = JSON.stringify(item);
-            if (item == '{}') {
-                item = '';
-            }
-        }
-        else {
-            item = s;
-        }
-    }
-    if (memo !== undefined || prependSep) {
-        foo = memo + sep;
-    }
-    if (item.search(c) >= 0 || item.search(q) >= 0 || item.search(n) >= 0) {
-        foo += '"' + item.replace(q, '""') + '"';
-    }
-    else {
-        foo += '' + item;
-    }
-    return foo;
-}
+  }
+  if (memo !== undefined || prependSep) {
+    foo = memo + sep;
+  }
+  if (item.search(c) >= 0 || item.search(q) >= 0 || item.search(n) >= 0) {
+    foo += '"' + item.replace(q, '""') + '"';
+  } else {
+    foo += "" + item;
+  }
+  return foo;
+};
 
-exports.eol = "\r\n";
-exports.separator = ",";
+const EOL = "\r\n";
+const SEPARATOR = ",";
+const QUOTE = '"';
 
-exports.detect = function detect (input)
-{
-    var separators = [',', ';', '|', '\t'];
-    var idx = separators.map(function (separator) {
-        return input.indexOf(separator);
-    }).reduce(function (prev, cur) {
-        if (prev === -1 || cur !== -1 && cur < prev) {
-            return cur;
-        }
-        else {
-            return prev;
-        }
+// TODO: return type Separator = "," | ";" | "|" | "\t";
+const detect = (input): string => {
+  const separators = [",", ";", "|", "\t"];
+  const idx = separators
+    .map((separator) => {
+      return input.indexOf(separator);
+    })
+    .reduce((prev, cur) => {
+      if (prev === -1 || (cur !== -1 && cur < prev)) {
+        return cur;
+      } else {
+        return prev;
+      }
     });
-    return input[idx] || ',';
-}
+  return input[idx] || ",";
+};
 
+const stringify = (input?, sep = SEPARATOR): string => {
+  let ret;
+  sep = sep || SEPARATOR;
+  if (Array.isArray(input) && input.length === 0) {
+    ret = EOL;
+  } else if (Array.isArray(input) && !Array.isArray(input[0])) {
+    for (let loop = 0; loop < input.length; loop++) {
+      ret = reducer(input[loop], ret, sep, loop > 0);
+    }
+    ret += EOL;
+  } else if (Array.isArray(input) && Array.isArray(input[0])) {
+    ret = "";
+    input.forEach((item) => {
+      ret += stringify(item, sep);
+    });
+  } else if (typeof input == "object") {
+    for (const key in input) {
+      if (Object.prototype.hasOwnProperty.call(input, key)) {
+        ret = reducer(input[key], ret, sep);
+      }
+    }
+    ret += EOL;
+  } else {
+    ret = reducer(input, ret, sep) + EOL;
+  }
+  return ret;
+};
 
-exports.stringify = function (input, sep) {
-    var ret;
-    sep = sep || exports.separator;
-    if (Array.isArray(input) && input.length === 0) {
-        ret = exports.eol;
-    }
-    else if (Array.isArray(input) && !Array.isArray(input[0])) {
-        for (var loop = 0; loop < input.length; loop++) {
-            ret = reducer(input[loop], ret, sep, loop > 0);
-        }
-        ret += exports.eol;
-    }
-    else if (Array.isArray(input) && Array.isArray(input[0])) {
-        ret = '';
-        input.forEach(function (item) {
-            ret += exports.stringify(item, sep);
-        }
-        );
-    }
-    else if (typeof input == 'object') {
-        for (var key in input) {
-            if (input.hasOwnProperty(key)) {
-                ret = reducer(input[key], ret, sep);
-            }
-        }
-        ret += exports.eol;
-    }
-    else {
-        ret = reducer(input, ret, sep) + exports.eol;
-    }
-    return ret;
-}
-
-exports.parse = function (input, sep, quo) {
-    if (sep === undefined) {
+const parse = (input, sep?, quo?): string[][] => {
+  if (sep === undefined) {
     // try to detect the separator if not provided
-        sep = exports.detect(input);
-    }
-    var csv = new Parser(input, sep, quo);
-    return csv.File();
-}
+    sep = detect(input);
+  }
+  const csv = new Parser(input, sep, quo);
+  return csv.File();
+};
 
+const read = function (input, sep, quo?, callback?): number {
+  if (arguments.length < 3) {
+    callback = sep;
+    sep = ",";
+  } else if (arguments.length < 4) {
+    callback = quo;
+    quo = '"';
+  }
+  const csv = new Parser(input, sep, quo);
+  const fields = csv.Row();
+  callback(fields);
+  return csv.pointer;
+};
 
-exports.forEach = function (input, sep, quo, callback) {
-    if (arguments.length < 3) {
-        callback = sep;
-        sep = ',';
-    }
-    else if (arguments.length < 4) {
-        callback = quo;
-        quo = '"';
-    }
-    var i = 0, s = 0, r;
-    while (r = exports.read(input.slice(s), sep, quo, function (fields) {
-        callback(fields, i++);
-    }
-    )
-    ) {
-        s += r;
-    }
-}
+const forEach = function (input, sep, quo?, callback?): void {
+  if (arguments.length < 3) {
+    callback = sep;
+    sep = ",";
+  } else if (arguments.length < 4) {
+    callback = quo;
+    quo = '"';
+  }
+  let i = 0,
+    s = 0,
+    r;
+  while (
+    (r = read(input.slice(s), sep, quo, (fields) => {
+      callback(fields, i++);
+    }))
+  ) {
+    s += r;
+  }
+};
 
-exports.read = function (input, sep, quo, callback) {
-    if (arguments.length < 3) {
-        callback = sep;
-        sep = ',';
-    }
-    else if (arguments.length < 4) {
-        callback = quo;
-        quo = '"';
-    }
-    var csv = new Parser(input, sep, quo);
-    var fields = csv.Row();
-    callback(fields);
-    return csv.pointer;
-}
+const readAll = function (input, sep, quo?, callback?): number {
+  if (arguments.length < 3) {
+    callback = sep;
+    sep = SEPARATOR;
+  } else if (arguments.length < 4) {
+    callback = quo;
+    quo = QUOTE;
+  }
+  const csv = new Parser(input, sep, quo);
+  const rows = csv.File();
+  callback(rows);
+  return csv.pointer;
+};
 
-exports.readAll = function (input, sep, quo, callback) {
-    if (arguments.length < 3) {
-        callback = sep;
-        sep = ',';
-    }
-    else if (arguments.length < 4) {
-        callback = quo;
-        quo = '"';
-    }
-    var csv = new Parser(input, sep, quo);
-    var rows = csv.File();
-    callback(rows);
-    return csv.pointer;
-}
+const readChunk = function (input, sep, quo?, callback?): number {
+  if (arguments.length < 3) {
+    callback = sep;
+    sep = ",";
+  } else if (arguments.length < 4) {
+    callback = quo;
+    quo = '"';
+  }
+  const csv = new Parser(input, sep, quo);
+  const rows = csv.File();
+  let ret = 0;
+  if (csv.pointer < input.length) {
+    ret = csv.pointer;
+  } else {
+    rows.pop();
+    ret = csv.linePointer;
+  }
+  callback(rows);
+  return ret;
+};
 
-exports.readChunk = function (input, sep, quo, callback) {
-    if (arguments.length < 3) {
-        callback = sep;
-        sep = ',';
-    }
-    else if (arguments.length < 4) {
-        callback = quo;
-        quo = '"';
-    }
-    var csv = new Parser(input, sep, quo);
-    var rows = csv.File();
-    var ret = 0;
-    if (csv.pointer < input.length) {
-        ret = csv.pointer;
-    }
-    else {
-        rows.pop();
-        ret = csv.linePointer;
-    }
-    callback(rows);
-    return ret;
-}
+const fetch = (input, sep?, quo?): number => {
+  let output;
+  read(input, sep, quo, (fields) => {
+    output = fields;
+  });
+  return output;
+};
 
+const createStream = (options): Streamer => new Streamer(options);
 
-
-exports.fetch = function (input, sep, quo) {
-    var output;
-    exports.read(input, sep, quo, function (fields) {
-        output = fields;
-    }
-    );
-    return output;
-
-}
-
-exports.createStream = function (options) {
-    return new Streamer(options);
-}
-
-
+export {
+  EOL as eol,
+  SEPARATOR as separator,
+  detect,
+  stringify,
+  parse,
+  read,
+  forEach,
+  readAll,
+  readChunk,
+  fetch,
+  createStream,
+};

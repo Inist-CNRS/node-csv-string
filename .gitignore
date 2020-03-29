@@ -89,3 +89,5 @@ typings/
 
 # Visual Studio Code
 .vscode
+
+dist/

@@ -1,11 +1,9 @@
-var CSV = require(__dirname + '/..')
+const CSV = require(__dirname + "/..");
 
-var nodecsv = require('csv');
+const nodecsv = require("csv");
 
-nodecsv().
-    from.path(__dirname + '/twitter.csv').
-    on('record', function (row) {
-        process.stdout.write(CSV.stringify(row));
-    }
-    );
-
+nodecsv()
+  .from.path(__dirname + "/twitter.csv")
+  .on("record", function (row) {
+    process.stdout.write(CSV.stringify(row));
+  });
