@@ -1,6 +1,18 @@
 {
   "name": "csv-string",
   "version": "3.2.0",
+  "description": "PARSE and STRINGIFY for CSV strings. It's like JSON object but for CSV. It can also work row by row. And, if can parse strings, it can be use to parse files or streams too.",
+  "keywords": [
+    "csv",
+    "parser",
+    "string",
+    "generator"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Inist-CNRS/node-csv-string"
+  },
+  "license": "MIT",
   "author": "Nicolas Thouvenin <nthouvenin@gmail.com>",
   "contributors": [
     {
@@ -36,24 +48,15 @@
       "url": "https://github.com/parmentf"
     }
   ],
-  "description": "PARSE and STRINGIFY for CSV strings. It's like JSON object but for CSV. It can also work row by row. And, if can parse strings, it can be use to parse files or streams too.",
-  "keywords": [
-    "csv",
-    "parser",
-    "string",
-    "generator"
+  "main": "./dist/index.js",
+  "types": "./dist/index.d.ts",
+  "files": [
+    "/dist"
   ],
-  "homepage": "https://github.com/Inist-CNRS/node-csv-string",
   "scripts": {
     "build": "rm -rf ./dist && tsc",
     "lint": "eslint \"./{src,examples,bench}/**/*.{js,ts}\"",
     "test": "jest --coverage"
-  },
-  "main": "./dist/index.js",
-  "types": "./dist/index.d.ts",
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/Inist-CNRS/node-csv-string.git"
   },
   "dependencies": {},
   "devDependencies": {
@@ -72,7 +75,6 @@
     "ts-node": "^8.8.1",
     "typescript": "^3.8.3"
   },
-  "license": "MIT",
   "engines": {
     "node": ">=12.0"
   }
