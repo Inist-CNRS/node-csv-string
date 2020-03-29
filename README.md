@@ -53,12 +53,6 @@ or [yarn](https://yarnpkg.com/)
 yarn add csv-string
 ```
 
-## Tests
-
-```bash
-yarn test
-```
-
 ## API Documentation
 
 ### parse(input: string, [separator: string], [quote: string]): Object
@@ -272,6 +266,14 @@ process.stdin.resume();
 process.stdin.setEncoding("utf8");
 process.stdin.pipe(stream);
 ```
+
+## Contribution
+
+- `clone`
+- `yarn install`
+- ... do the changes, write tests
+- `yarn test` (ensure all tests pass)
+- `yarn bench` (to check the performance impact)
 
 ## Related projects
 

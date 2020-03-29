@@ -66,7 +66,6 @@ export class Parser {
   File(): Value[][] {
     const files: Value[][] = [];
     let row: Value[];
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       const tempointer = this.pointer;
       row = this.Row();
@@ -93,7 +92,6 @@ export class Parser {
 
   Row(): Value[] {
     const row: Value[] = [];
-    // eslint-disable-next-line no-constant-condition
     while (true) {
       row.push(this.Value() || "");
       if (this.Comma()) {
@@ -169,9 +167,8 @@ export class Parser {
 
   QuotedValue(): Value | undefined {
     if (this.input.charAt(this.pointer) === this.quote) {
-      let searchIndex,
-        index = 1;
-      // eslint-disable-next-line no-constant-condition
+      let searchIndex;
+      let index = 1;
       while (true) {
         searchIndex = this.input.slice(this.pointer + index).search(this.quote);
         if (searchIndex === -1) {

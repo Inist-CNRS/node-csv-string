@@ -3,10 +3,9 @@ import { Streamer } from "./Streamer";
 
 const reducer = (item, memo, sep, prependSep?): string => {
   let foo = "";
-  const c = new RegExp(sep, "g"),
-    q = new RegExp('"', "g"),
-    // eslint-disable-next-line no-control-regex
-    n = new RegExp("\n", "g");
+  const c = new RegExp(sep, "g");
+  const q = new RegExp('"', "g");
+  const n = new RegExp("\n", "g");
 
   if (item === 0) {
     item = "0";
@@ -115,9 +114,9 @@ const forEach = function (input, sep, quo?, callback?): void {
     callback = quo;
     quo = '"';
   }
-  let i = 0,
-    s = 0,
-    r;
+  let i = 0;
+  let s = 0;
+  let r: number;
   while (
     (r = read(input.slice(s), sep, quo, (fields) => {
       callback(fields, i++);
