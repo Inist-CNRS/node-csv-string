@@ -9,7 +9,7 @@ QuotedValue:  Residue '"' ('""' | ~'"')* '"' Residue;
 Residue:      (' ' | '\t' | '\f')*
 */
 
-import { LineBreak, Comma, Quote, Residue, Value } from "./types";
+import { LineBreak, Comma, Quote, Residue, Value } from './types';
 
 export class Parser {
   input!: string;
@@ -28,18 +28,18 @@ export class Parser {
     this.input = input;
     this.pointer = 0;
     this.linePointer = 0;
-    this.comma = (comma && (comma[0] as Comma)) || ",";
+    this.comma = (comma && (comma[0] as Comma)) || ',';
     this.quote = (quote && (quote[0] as Quote)) || '"';
     // initialize RegExp Object
     let residueChars =
-      " \f\v\u00a0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000";
-    if (this.comma !== "\t") {
-      residueChars += "\t";
+      ' \f\v\u00a0\u1680\u180e\u2000\u2001\u2002\u2003\u2004\u2005\u2006\u2007\u2008\u2009\u200a\u2028\u2029\u202f\u205f\u3000';
+    if (this.comma !== '\t') {
+      residueChars += '\t';
     }
     this._residueRegExp = new RegExp(`[^${residueChars}]`);
     // TODO: `(${this.comma}|\r\n)` instead?
     this._simpleValueRegExp = new RegExp(`[${this.comma}\r\n]`);
-    this._replaceQuoteRegExp = new RegExp(this.quote + this.quote, "g");
+    this._replaceQuoteRegExp = new RegExp(this.quote + this.quote, 'g');
   }
 
   File(): Value[][] {
@@ -99,7 +99,7 @@ export class Parser {
     if (simplevalue) {
       return residue ? residue + simplevalue : simplevalue;
     }
-    return "";
+    return '';
   }
 
   private Comma(): Comma | undefined {
@@ -113,22 +113,22 @@ export class Parser {
   }
 
   private LineBreak(): LineBreak | undefined {
-    if (this.input.slice(this.pointer, this.pointer + 2) === "\r\n") {
+    if (this.input.slice(this.pointer, this.pointer + 2) === '\r\n') {
       this.pointer += 2;
-      return "\r\n";
+      return '\r\n';
     }
-    if (this.input.charAt(this.pointer) === "\n") {
+    if (this.input.charAt(this.pointer) === '\n') {
       this.pointer += 1;
-      return "\n";
+      return '\n';
     }
-    if (this.input.charAt(this.pointer) === "\r") {
+    if (this.input.charAt(this.pointer) === '\r') {
       this.pointer += 1;
-      return "\r";
+      return '\r';
     }
   }
 
   private SimpleValue(): Value | undefined {
-    let value = "";
+    let value = '';
     const index = this.input
       .slice(this.pointer)
       .search(this._simpleValueRegExp);
@@ -176,12 +176,12 @@ export class Parser {
   }
 
   private Residue(): Residue {
-    let value = "";
+    let value = '';
     const index = this.input.slice(this.pointer).search(this._residueRegExp);
     if (index === -1) {
       value = this.input.slice(this.pointer);
     } else if (index === 0) {
-      return "";
+      return '';
     } else {
       value = this.input.slice(this.pointer, this.pointer + index);
     }

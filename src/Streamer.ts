@@ -1,8 +1,8 @@
-import { Transform, TransformCallback } from "stream";
+import { Transform, TransformCallback } from 'stream';
 
-import { detect } from "./CSV";
-import { Parser } from "./Parser";
-import { Quote, Comma } from "./types";
+import { detect } from './CSV';
+import { Parser } from './Parser';
+import { Quote, Comma } from './types';
 
 export class Streamer extends Transform {
   buffer: string;
@@ -15,11 +15,13 @@ export class Streamer extends Transform {
       writableObjectMode: false,
     });
     // Transform.call(this, );
-    this.buffer = "";
+    this.buffer = '';
     this.sep = options && options.separator;
     this.quo = options && options.quote;
   }
 
+  // overridden function with same signature
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   _transform(chunk: any, _encoding: string, callback: TransformCallback): void {
     this.buffer = this.buffer.concat(chunk.toString());
     if (this.sep === undefined) {

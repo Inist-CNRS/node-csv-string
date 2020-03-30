@@ -1,5 +1,5 @@
-import { Parser } from "./Parser";
-import { Streamer } from "./Streamer";
+import { Parser } from './Parser';
+import { Streamer } from './Streamer';
 import {
   Comma,
   ForEachCallback,
@@ -9,13 +9,13 @@ import {
   ReadAllCallback,
   ReadCallback,
   Value,
-} from "./types";
+} from './types';
 
-const EOL: LineBreak = "\r\n";
-const SEPARATOR: Comma = ",";
+const EOL: LineBreak = '\r\n';
+const SEPARATOR: Comma = ',';
 
-const quoteCharReqex = new RegExp('"', "g");
-const specialCharReqex = new RegExp('["\r\n]', "g");
+const quoteCharReqex = new RegExp('"', 'g');
+const specialCharReqex = new RegExp('["\r\n]', 'g');
 const _shouldBeQuoted = (value: string, sep: string): boolean =>
   value.search(specialCharReqex) >= 0 || value.includes(sep);
 const _quoteIfRquired = (value: string, sep: string): string =>
@@ -24,16 +24,16 @@ const _quoteIfRquired = (value: string, sep: string): string =>
     : value;
 const _stringifySingleValue = (item: PristineInput): string => {
   if (item === 0) {
-    item = "0";
+    item = '0';
   } else if (item === undefined || item === null) {
-    item = "";
+    item = '';
   }
-  if (typeof item != "string") {
+  if (typeof item != 'string') {
     const s = item.toString();
-    if (s == "[object Object]") {
+    if (s == '[object Object]') {
       item = JSON.stringify(item);
-      if (item == "{}") {
-        item = "";
+      if (item == '{}') {
+        item = '';
       }
     } else {
       item = s;
@@ -49,19 +49,19 @@ const reducer = (
 ): Value => {
   item = _stringifySingleValue(item);
   return (
-    (memo !== undefined || prependSep ? `${memo}${sep}` : "") +
+    (memo !== undefined || prependSep ? `${memo}${sep}` : '') +
     _quoteIfRquired(item, sep)
   );
 };
 
 const detect = (input: string): Comma => {
-  const separators = [",", ";", "|", "\t"];
+  const separators = [',', ';', '|', '\t'];
   const idx = separators
     .map((separator) => input.indexOf(separator))
     .reduce((prev, cur) =>
       prev === -1 || (cur !== -1 && cur < prev) ? cur : prev
     );
-  return (input[idx] || ",") as Comma;
+  return (input[idx] || ',') as Comma;
 };
 
 const stringify = (input?: PristineInput, sep: Comma = SEPARATOR): string => {
@@ -76,9 +76,9 @@ const stringify = (input?: PristineInput, sep: Comma = SEPARATOR): string => {
       }
       ret += EOL;
     } else if (Array.isArray(input[0])) {
-      ret = input.map((item) => stringify(item, sep)).join("");
+      ret = input.map((item) => stringify(item, sep)).join('');
     }
-  } else if (typeof input == "object") {
+  } else if (typeof input == 'object') {
     for (const key in input) {
       if (input.hasOwnProperty(key)) {
         ret = reducer(input[key], ret, sep);
@@ -117,15 +117,15 @@ function read(
   if (callback === undefined) {
     if (quo === undefined) {
       // arguments.length < 3) {
-      if (typeof sep !== "function") {
-        throw Error("Last/second argument is not a callback");
+      if (typeof sep !== 'function') {
+        throw Error('Last/second argument is not a callback');
       }
       callback = sep;
-      sep = ",";
+      sep = ',';
     } else {
       // arguments.length < 4) {
-      if (typeof quo !== "function") {
-        throw Error("Last/third argument is not a callback");
+      if (typeof quo !== 'function') {
+        throw Error('Last/third argument is not a callback');
       }
       callback = quo;
       quo = '"';
@@ -154,15 +154,15 @@ function forEach(
   if (callback === undefined) {
     if (quo === undefined) {
       // arguments.length < 3) {
-      if (typeof sep !== "function") {
-        throw Error("Last/second argument is not a callback");
+      if (typeof sep !== 'function') {
+        throw Error('Last/second argument is not a callback');
       }
       callback = sep;
-      sep = ",";
+      sep = ',';
     } else {
       // arguments.length < 4) {
-      if (typeof quo !== "function") {
-        throw Error("Last/third argument is not a callback");
+      if (typeof quo !== 'function') {
+        throw Error('Last/third argument is not a callback');
       }
       callback = quo;
       quo = '"';
@@ -197,15 +197,15 @@ function readAll(
   if (callback === undefined) {
     if (quo === undefined) {
       // arguments.length < 3) {
-      if (typeof sep !== "function") {
-        throw Error("Last/second argument is not a callback");
+      if (typeof sep !== 'function') {
+        throw Error('Last/second argument is not a callback');
       }
       callback = sep;
-      sep = ",";
+      sep = ',';
     } else {
       // arguments.length < 4) {
-      if (typeof quo !== "function") {
-        throw Error("Last/third argument is not a callback");
+      if (typeof quo !== 'function') {
+        throw Error('Last/third argument is not a callback');
       }
       callback = quo;
       quo = '"';
@@ -238,15 +238,15 @@ function readChunk(
   if (callback === undefined) {
     if (quo === undefined) {
       // arguments.length < 3) {
-      if (typeof sep !== "function") {
-        throw Error("Last/second argument is not a callback");
+      if (typeof sep !== 'function') {
+        throw Error('Last/second argument is not a callback');
       }
       callback = sep;
-      sep = ",";
+      sep = ',';
     } else {
       // arguments.length < 4) {
-      if (typeof quo !== "function") {
-        throw Error("Last/third argument is not a callback");
+      if (typeof quo !== 'function') {
+        throw Error('Last/third argument is not a callback');
       }
       callback = quo;
       quo = '"';

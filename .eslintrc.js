@@ -2,6 +2,7 @@ const OFF = "off";
 const ERROR = "error";
 
 module.exports = {
+  ignorePatterns: ["**/node_modules/*", "**/dist/*"],
   extends: [
     "plugin:@typescript-eslint/recommended",
     "prettier/@typescript-eslint",
@@ -14,6 +15,7 @@ module.exports = {
   },
   plugins: ["import"],
   rules: {
+    "prettier/prettier": [ERROR, { singleQuote: true }],
     "import/order": [
       ERROR,
       {

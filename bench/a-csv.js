@@ -1,11 +1,11 @@
-const acsv = require("a-csv");
+const acsv = require('a-csv');
 
-const CSV = require("..");
+const CSV = require('..');
 
 const FILE = `${__dirname}/twitter.csv`;
 
 const options = {
-  delimiter: ",",
+  delimiter: ',',
   headers: true,
 };
 

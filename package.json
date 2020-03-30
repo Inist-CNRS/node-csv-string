@@ -55,7 +55,7 @@
   ],
   "scripts": {
     "build": "rm -rf ./dist && tsc",
-    "lint": "eslint \"./{src,examples,bench}/**/*.{js,ts}\"",
+    "lint": "eslint --ext js,ts .",
     "test": "jest --coverage",
     "bench": "./bench/_bench.sh"
   },

@@ -1,13 +1,13 @@
-const { createReadStream } = require("fs");
+const { createReadStream } = require('fs');
 
-const nodecsv = require("csv");
+const nodecsv = require('csv');
 
-const CSV = require("..");
+const CSV = require('..');
 
 const FILE = `${__dirname}/twitter.csv`;
 
 const parser = nodecsv.parse();
-parser.on("readable", function () {
+parser.on('readable', function () {
   let record;
   while ((record = parser.read())) {
     process.stdout.write(CSV.stringify(record));

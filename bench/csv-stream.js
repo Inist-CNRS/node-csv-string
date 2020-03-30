@@ -1,8 +1,8 @@
-const { createReadStream } = require("fs");
+const { createReadStream } = require('fs');
 
-const csv = require("csv-stream");
+const csv = require('csv-stream');
 
-const CSV = require("..");
+const CSV = require('..');
 
 const FILE = `${__dirname}/twitter.csv`;
 
@@ -10,6 +10,6 @@ const csvStream = csv.createStream();
 
 createReadStream(FILE)
   .pipe(csvStream)
-  .on("data", (data) => {
+  .on('data', (data) => {
     process.stdout.write(CSV.stringify(data));
   });
