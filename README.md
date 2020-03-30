@@ -11,16 +11,16 @@ Parse and Stringify for CSV strings.
 - Written in TypeScript
 
 ```js
-import * as CSV from "csv-string";
+import * as CSV from 'csv-string';
 
 // with String
-const arr = CSV.parse("a,b,c\na,b,c");
+const arr = CSV.parse('a,b,c\na,b,c');
 const str = CSV.stringify(arr);
 
 // with Stream
 const stream = CSV.createStream();
-stream.on("data", rows => {
-  process.stdout.write(CSV.stringify(rows, ","));
+stream.on('data', rows => {
+  process.stdout.write(CSV.stringify(rows, ','));
 });
 process.stdin.pipe(stream);
 ```
@@ -60,8 +60,8 @@ yarn add csv-string
 Converts a CSV string `input` to array output.
 
 ```js
-const CSV = require("csv-string");
-const parsedCsv = CSV.parse("a,b,c\na,b,c");
+const CSV = require('csv-string');
+const parsedCsv = CSV.parse('a,b,c\na,b,c');
 console.log(parsedCsv);
 ```
 
@@ -81,16 +81,16 @@ If separator parameter is not provided, it is automatically detected.
 Converts object `input` to a CSV string.
 
 ```js
-import * as CSV from "csv-string";
+import * as CSV from 'csv-string';
 
-console.log(CSV.stringify(["a", "b", "c"]));
+console.log(CSV.stringify(['a', 'b', 'c']));
 console.log(
   CSV.stringify([
-    ["c", "d", "e"],
-    ["c", "d", "e"]
+    ['c', 'd', 'e'],
+    ['c', 'd', 'e']
   ])
 );
-console.log(CSV.stringify({ a: "e", b: "f", c: "g" }));
+console.log(CSV.stringify({ a: 'e', b: 'f', c: 'g' }));
 ```
 
 Output:
@@ -109,12 +109,12 @@ e,f,g
 Detects the best separator.
 
 ```js
-import * as CSV from "csv-string";
+import * as CSV from 'csv-string';
 
-console.log(CSV.detect("a,b,c"));
-console.log(CSV.detect("a;b;c"));
-console.log(CSV.detect("a|b|c"));
-console.log(CSV.detect("a\tb\tc"));
+console.log(CSV.detect('a,b,c'));
+console.log(CSV.detect('a;b;c'));
+console.log(CSV.detect('a|b|c'));
+console.log(CSV.detect('a\tb\tc'));
 ```
 
 Output:
@@ -137,12 +137,12 @@ _callback(row: array, index: number): void_
 Calls `callback` for each CSV row/line. The Array passed to callback contains the fields of the current row.
 
 ```js
-import * as CSV from "csv-string";
+import * as CSV from 'csv-string';
 
-const data = "a,b,c\nd,e,f";
+const data = 'a,b,c\nd,e,f';
 
-CSV.forEach(data, ",", function (row, index) {
-  console.log("#" + index + " : ", row);
+CSV.forEach(data, ',', function (row, index) {
+  console.log('#' + index + ' : ', row);
 });
 ```
 
@@ -165,11 +165,11 @@ Calls `callback` when a CSV row is read. The Array passed to callback contains t
 Returns the first offset after the row.
 
 ```js
-import * as CSV from "csv-string";
+import * as CSV from 'csv-string';
 
-const data = "a,b,c\nd,e,f";
+const data = 'a,b,c\nd,e,f';
 
-const index = CSV.read(data, ",", row => {
+const index = CSV.read(data, ',', row => {
   console.log(row);
 });
 
@@ -195,15 +195,15 @@ Calls `callback` when all CSV rows are read. The Array passed to callback contai
 Returns the offset of the end of parsing (generaly it's the end of the input string).
 
 ```js
-import * as CSV from "csv-string";
+import * as CSV from 'csv-string';
 
-const data = "a,b,c\nd,e,f";
+const data = 'a,b,c\nd,e,f';
 
 const index = CSV.readAll(data, row => {
   console.log(row);
 });
 
-console.log("-" + data.slice(index) + "-");
+console.log('-' + data.slice(index) + '-');
 ```
 
 Output:
@@ -226,15 +226,15 @@ The Array passed to callback contains the rows of the file.
 Returns the offset of the end of parsing. If the last row is ignored, the offset will point to the beginnning of the row.
 
 ```js
-import * as CSV from "csv-string";
+import * as CSV from 'csv-string';
 
-const data = "a,b,c\nd,e";
+const data = 'a,b,c\nd,e';
 
 const index = CSV.readChunk(data, row => {
   console.log(row);
 });
 
-console.log("-" + data.slice(index) + "-");
+console.log('-' + data.slice(index) + '-');
 ```
 
 Output:
@@ -258,12 +258,12 @@ Example : Read CSV file from the standard input.
 ```js
 const stream = CSV.createStream();
 
-stream.on("data", row => {
+stream.on('data', row => {
   console.log(row);
 });
 
 process.stdin.resume();
-process.stdin.setEncoding("utf8");
+process.stdin.setEncoding('utf8');
 process.stdin.pipe(stream);
 ```
 
