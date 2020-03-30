@@ -2,13 +2,14 @@ import { Transform } from "stream";
 
 import { detect } from "./CSV";
 import { Parser } from "./Parser";
+import { Quote, Comma } from "./types";
 
 export class Streamer extends Transform {
   buffer: string;
-  sep?: string;
-  quo?: string;
+  sep?: Comma;
+  quo?: Quote;
 
-  constructor(options?: { separator?: string; quote?: string }) {
+  constructor(options?: { separator?: Comma; quote?: Quote }) {
     super({
       readableObjectMode: true,
       writableObjectMode: false,

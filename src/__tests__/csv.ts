@@ -251,6 +251,16 @@ describe("CSV", () => {
     });
   });
 
+  describe("parse+stringify", () => {
+    it("should #1", () => {
+      const testdata = [
+        ["a\rb", "cd"],
+        ["a\r,\rb", "cd"],
+      ];
+      expect(testdata).toEqual(CSV.parse(CSV.stringify(testdata)));
+    });
+  });
+
   describe("detect()", () => {
     it("should #1", () => {
       expect(CSV.detect("a,b,c\nd,e,f\ng,h,i")).toEqual(",");

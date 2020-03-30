@@ -1,12 +1,22 @@
 import { Parser } from "./Parser";
 import { Streamer } from "./Streamer";
+import { Comma, Quote, LineBreak } from "./types";
 
-const reducer = (item, memo, sep, prependSep?): string => {
-  let foo = "";
-  const c = new RegExp(sep, "g");
-  const q = new RegExp('"', "g");
-  const n = new RegExp("\n", "g");
+const EOL: LineBreak = "\r\n";
+const SEPARATOR: Comma = ",";
+const QUOTE: Quote = '"';
 
+const quoteCharReqex = new RegExp('"', "g");
+const specialCharReqex = new RegExp('["\r\n]', "g");
+const _shouldBeQuoted = (value: string, sep: string): boolean =>
+  value.search(specialCharReqex) >= 0 || value.includes(sep);
+const _quoteIfRquired = (value: string, sep: string): string =>
+  _shouldBeQuoted(value, sep)
+    ? '"' + value.replace(quoteCharReqex, '""') + '"'
+    : value;
+const _stringifySingleValue = (
+  item: string | number | null | undefined | object
+): string => {
   if (item === 0) {
     item = "0";
   } else if (item === undefined || item === null) {
@@ -23,35 +33,23 @@ const reducer = (item, memo, sep, prependSep?): string => {
       item = s;
     }
   }
-  if (memo !== undefined || prependSep) {
-    foo = memo + sep;
-  }
-  if (item.search(c) >= 0 || item.search(q) >= 0 || item.search(n) >= 0) {
-    foo += '"' + item.replace(q, '""') + '"';
-  } else {
-    foo += "" + item;
-  }
-  return foo;
+  return item;
+};
+const reducer = (item, memo, sep, prependSep?): string => {
+  item = _stringifySingleValue(item);
+  return (
+    (memo !== undefined || prependSep ? `${memo}${sep}` : "") +
+    _quoteIfRquired(item, sep)
+  );
 };
 
-const EOL = "\r\n";
-const SEPARATOR = ",";
-const QUOTE = '"';
-
-// TODO: return type Separator = "," | ";" | "|" | "\t";
-const detect = (input): string => {
+const detect = (input): Comma => {
   const separators = [",", ";", "|", "\t"];
   const idx = separators
-    .map((separator) => {
-      return input.indexOf(separator);
-    })
-    .reduce((prev, cur) => {
-      if (prev === -1 || (cur !== -1 && cur < prev)) {
-        return cur;
-      } else {
-        return prev;
-      }
-    });
+    .map((separator) => input.indexOf(separator))
+    .reduce((prev, cur) =>
+      prev === -1 || (cur !== -1 && cur < prev) ? cur : prev
+    );
   return input[idx] || ",";
 };
 
@@ -170,8 +168,8 @@ const fetch = (input, sep?, quo?): number => {
 };
 
 const createStream = (options?: {
-  separator?: string;
-  quote?: string;
+  separator?: Comma;
+  quote?: Quote;
 }): Streamer => new Streamer(options);
 
 export {
