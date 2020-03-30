@@ -1,10 +1,18 @@
 import { Parser } from "./Parser";
 import { Streamer } from "./Streamer";
-import { Comma, Quote, LineBreak } from "./types";
+import {
+  Comma,
+  ForEachCallback,
+  LineBreak,
+  PristineInput,
+  Quote,
+  ReadAllCallback,
+  ReadCallback,
+  Value,
+} from "./types";
 
 const EOL: LineBreak = "\r\n";
 const SEPARATOR: Comma = ",";
-const QUOTE: Quote = '"';
 
 const quoteCharReqex = new RegExp('"', "g");
 const specialCharReqex = new RegExp('["\r\n]', "g");
@@ -14,9 +22,7 @@ const _quoteIfRquired = (value: string, sep: string): string =>
   _shouldBeQuoted(value, sep)
     ? '"' + value.replace(quoteCharReqex, '""') + '"'
     : value;
-const _stringifySingleValue = (
-  item: string | number | null | undefined | object
-): string => {
+const _stringifySingleValue = (item: PristineInput): string => {
   if (item === 0) {
     item = "0";
   } else if (item === undefined || item === null) {
@@ -35,7 +41,12 @@ const _stringifySingleValue = (
   }
   return item;
 };
-const reducer = (item, memo, sep, prependSep?): string => {
+const reducer = (
+  item: PristineInput,
+  memo: PristineInput | undefined,
+  sep: Comma,
+  prependSep?: boolean
+): Value => {
   item = _stringifySingleValue(item);
   return (
     (memo !== undefined || prependSep ? `${memo}${sep}` : "") +
@@ -43,34 +54,33 @@ const reducer = (item, memo, sep, prependSep?): string => {
   );
 };
 
-const detect = (input): Comma => {
+const detect = (input: string): Comma => {
   const separators = [",", ";", "|", "\t"];
   const idx = separators
     .map((separator) => input.indexOf(separator))
     .reduce((prev, cur) =>
       prev === -1 || (cur !== -1 && cur < prev) ? cur : prev
     );
-  return input[idx] || ",";
+  return (input[idx] || ",") as Comma;
 };
 
-const stringify = (input?, sep = SEPARATOR): string => {
-  let ret;
+const stringify = (input?: PristineInput, sep: Comma = SEPARATOR): string => {
+  let ret: string | undefined;
   sep = sep || SEPARATOR;
-  if (Array.isArray(input) && input.length === 0) {
-    ret = EOL;
-  } else if (Array.isArray(input) && !Array.isArray(input[0])) {
-    for (let loop = 0; loop < input.length; loop++) {
-      ret = reducer(input[loop], ret, sep, loop > 0);
+  if (Array.isArray(input)) {
+    if (input.length === 0) {
+      ret = EOL;
+    } else if (!Array.isArray(input[0])) {
+      for (let loop = 0; loop < input.length; loop++) {
+        ret = reducer(input[loop], ret, sep, loop > 0);
+      }
+      ret += EOL;
+    } else if (Array.isArray(input[0])) {
+      ret = input.map((item) => stringify(item, sep)).join("");
     }
-    ret += EOL;
-  } else if (Array.isArray(input) && Array.isArray(input[0])) {
-    ret = "";
-    input.forEach((item) => {
-      ret += stringify(item, sep);
-    });
   } else if (typeof input == "object") {
     for (const key in input) {
-      if (Object.prototype.hasOwnProperty.call(input, key)) {
+      if (input.hasOwnProperty(key)) {
         ret = reducer(input[key], ret, sep);
       }
     }
@@ -78,10 +88,10 @@ const stringify = (input?, sep = SEPARATOR): string => {
   } else {
     ret = reducer(input, ret, sep) + EOL;
   }
-  return ret;
+  return ret as string;
 };
 
-const parse = (input, sep?, quo?): string[][] => {
+const parse = (input: string, sep?: Comma, quo?: Quote): Value[][] => {
   if (sep === undefined) {
     // try to detect the separator if not provided
     sep = detect(input);
@@ -90,63 +100,159 @@ const parse = (input, sep?, quo?): string[][] => {
   return csv.File();
 };
 
-const read = function (input, sep, quo?, callback?): number {
-  if (arguments.length < 3) {
-    callback = sep;
-    sep = ",";
-  } else if (arguments.length < 4) {
-    callback = quo;
-    quo = '"';
+function read(input: string, callback: ReadCallback): number;
+function read(input: string, sep: Comma, callback: ReadCallback): number;
+function read(
+  input: string,
+  sep: Comma,
+  quo: Quote,
+  callback: ReadCallback
+): number;
+function read(
+  input: string,
+  sep: Comma | ReadCallback,
+  quo?: Quote | ReadCallback,
+  callback?: ReadCallback
+): number {
+  if (callback === undefined) {
+    if (quo === undefined) {
+      // arguments.length < 3) {
+      if (typeof sep !== "function") {
+        throw Error("Last/second argument is not a callback");
+      }
+      callback = sep;
+      sep = ",";
+    } else {
+      // arguments.length < 4) {
+      if (typeof quo !== "function") {
+        throw Error("Last/third argument is not a callback");
+      }
+      callback = quo;
+      quo = '"';
+    }
   }
-  const csv = new Parser(input, sep, quo);
+  const csv = new Parser(input, sep as Comma, quo as Quote);
   const fields = csv.Row();
   callback(fields);
   return csv.pointer;
-};
+}
 
-const forEach = function (input, sep, quo?, callback?): void {
-  if (arguments.length < 3) {
-    callback = sep;
-    sep = ",";
-  } else if (arguments.length < 4) {
-    callback = quo;
-    quo = '"';
+function forEach(input: string, callback: ForEachCallback): void;
+function forEach(input: string, sep: Comma, callback: ForEachCallback): void;
+function forEach(
+  input: string,
+  sep: Comma,
+  quo: Quote,
+  callback: ForEachCallback
+): void;
+function forEach(
+  input: string,
+  sep: Comma | ForEachCallback,
+  quo?: Quote | ForEachCallback,
+  callback?: ForEachCallback
+): void {
+  if (callback === undefined) {
+    if (quo === undefined) {
+      // arguments.length < 3) {
+      if (typeof sep !== "function") {
+        throw Error("Last/second argument is not a callback");
+      }
+      callback = sep;
+      sep = ",";
+    } else {
+      // arguments.length < 4) {
+      if (typeof quo !== "function") {
+        throw Error("Last/third argument is not a callback");
+      }
+      callback = quo;
+      quo = '"';
+    }
   }
   let i = 0;
   let s = 0;
   let r: number;
   while (
-    (r = read(input.slice(s), sep, quo, (fields) => {
-      callback(fields, i++);
-    }))
+    (r = read(input.slice(s), sep as Comma, quo as Quote, (fields) =>
+      (callback as ForEachCallback)(fields, i++)
+    ))
   ) {
     s += r;
   }
-};
+}
 
-const readAll = function (input, sep, quo?, callback?): number {
-  if (arguments.length < 3) {
-    callback = sep;
-    sep = SEPARATOR;
-  } else if (arguments.length < 4) {
-    callback = quo;
-    quo = QUOTE;
+function readAll(input: string, callback: ReadAllCallback): number;
+function readAll(input: string, sep: Comma, callback: ReadAllCallback): number;
+function readAll(
+  input: string,
+  sep: Comma,
+  quo: Quote,
+  callback: ReadAllCallback
+): number;
+function readAll(
+  input: string,
+  sep: Comma | ReadAllCallback,
+  quo?: Quote | ReadAllCallback,
+  callback?: ReadAllCallback
+): number {
+  if (callback === undefined) {
+    if (quo === undefined) {
+      // arguments.length < 3) {
+      if (typeof sep !== "function") {
+        throw Error("Last/second argument is not a callback");
+      }
+      callback = sep;
+      sep = ",";
+    } else {
+      // arguments.length < 4) {
+      if (typeof quo !== "function") {
+        throw Error("Last/third argument is not a callback");
+      }
+      callback = quo;
+      quo = '"';
+    }
   }
-  const csv = new Parser(input, sep, quo);
+  const csv = new Parser(input, sep as Comma, quo as Quote);
   const rows = csv.File();
   callback(rows);
   return csv.pointer;
-};
+}
 
-const readChunk = function (input, sep, quo?, callback?): number {
-  if (arguments.length < 3) {
-    callback = sep;
-    sep = ",";
-  } else if (arguments.length < 4) {
-    callback = quo;
-    quo = '"';
+function readChunk(input: string, callback: ReadAllCallback): number;
+function readChunk(
+  input: string,
+  sep: Comma,
+  callback: ReadAllCallback
+): number;
+function readChunk(
+  input: string,
+  sep: Comma,
+  quo: Quote,
+  callback: ReadAllCallback
+): number;
+function readChunk(
+  input: string,
+  sep: Comma | ReadAllCallback,
+  quo?: Quote | ReadAllCallback,
+  callback?: ReadAllCallback
+): number {
+  if (callback === undefined) {
+    if (quo === undefined) {
+      // arguments.length < 3) {
+      if (typeof sep !== "function") {
+        throw Error("Last/second argument is not a callback");
+      }
+      callback = sep;
+      sep = ",";
+    } else {
+      // arguments.length < 4) {
+      if (typeof quo !== "function") {
+        throw Error("Last/third argument is not a callback");
+      }
+      callback = quo;
+      quo = '"';
+    }
   }
-  const csv = new Parser(input, sep, quo);
+  const csv = new Parser(input, sep as Comma, quo as Quote);
   const rows = csv.File();
   let ret = 0;
   if (csv.pointer < input.length) {
@@ -157,14 +263,15 @@ const readChunk = function (input, sep, quo?, callback?): number {
   }
   callback(rows);
   return ret;
-};
+}
 
-const fetch = (input, sep?, quo?): number => {
-  let output;
-  read(input, sep, quo, (fields) => {
+const fetch = (input: string, sep?: Comma, quo?: Quote): Value[] => {
+  // TODO
+  let output: Value[] | undefined;
+  read(input, sep as Comma, quo as Quote, (fields) => {
     output = fields;
   });
-  return output;
+  return output as Value[];
 };
 
 const createStream = (options?: {

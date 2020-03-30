@@ -1,4 +1,4 @@
-import { Transform } from "stream";
+import { Transform, TransformCallback } from "stream";
 
 import { detect } from "./CSV";
 import { Parser } from "./Parser";
@@ -20,7 +20,7 @@ export class Streamer extends Transform {
     this.quo = options && options.quote;
   }
 
-  _transform(chunk, encoding, done): void {
+  _transform(chunk: any, _encoding: string, callback: TransformCallback): void {
     this.buffer = this.buffer.concat(chunk.toString());
     if (this.sep === undefined) {
       // try to detect the separator if not provided
@@ -39,7 +39,7 @@ export class Streamer extends Transform {
         this.push(row);
       });
     }
-    done();
+    callback();
   }
 
   // TODO
@@ -49,7 +49,7 @@ export class Streamer extends Transform {
   }
   */
 
-  _flush(done): void {
+  _flush(callback: TransformCallback): void {
     const csv = new Parser(this.buffer, this.sep, this.quo);
     const rows = csv.File();
     if (rows.length > 0) {
@@ -57,6 +57,6 @@ export class Streamer extends Transform {
         this.push(row);
       });
     }
-    done();
+    callback();
   }
 }

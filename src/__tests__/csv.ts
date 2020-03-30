@@ -2,6 +2,7 @@ import * as fs from "fs";
 import * as path from "path";
 
 import * as CSV from "../";
+import { Comma } from "../types";
 
 describe("CSV", () => {
   describe("stringify()", () => {
@@ -238,7 +239,7 @@ describe("CSV", () => {
       expect(obj[1]).toEqual(["d", "e", "f"]);
     });
     it("should #5", () => {
-      const obj = CSV.parse("a,b,c\nd,e,f\ng,h,i", ",,,,,,");
+      const obj = CSV.parse("a,b,c\nd,e,f\ng,h,i", ",,,,,," as Comma);
       expect(obj[0]).toEqual(["a", "b", "c"]);
       expect(obj[1]).toEqual(["d", "e", "f"]);
       expect(obj[2]).toEqual(["g", "h", "i"]);
@@ -258,6 +259,16 @@ describe("CSV", () => {
         ["a\r,\rb", "cd"],
       ];
       expect(testdata).toEqual(CSV.parse(CSV.stringify(testdata)));
+    });
+    // TODO
+    it.skip("should #2", () => {
+      const testdata = "abcd\rb,cd\r\n";
+      console.log(
+        JSON.stringify(testdata),
+        JSON.stringify(CSV.parse(testdata)),
+        JSON.stringify(CSV.stringify(CSV.parse(testdata)))
+      );
+      expect(testdata).toEqual(CSV.stringify(CSV.parse(testdata)));
     });
   });
 

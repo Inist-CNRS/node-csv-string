@@ -5,7 +5,6 @@
     "declaration": true,
     "outDir": "./dist",
     "strict": true,
-    "noImplicitAny": false,
     "types": ["node", "jest"],
     "esModuleInterop": true,
     "forceConsistentCasingInFileNames": true
