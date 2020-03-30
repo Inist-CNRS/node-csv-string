@@ -88,6 +88,7 @@ typings/
 .dynamodb/
 
 # Visual Studio Code
-.vscode
+.vscode/*
+!.vscode/launch.json
 
 dist/
