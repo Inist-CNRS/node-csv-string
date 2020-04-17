@@ -7,10 +7,10 @@ Parse and Stringify for CSV strings.
 - API similar to the JSON parser (`CSV.parse` and `CSV.stringify`).
 - Can also work row by row.
 - Can also be used to parse strings from readable streams (e.g. file streams).
-- tolerant with the weird data
-- ES6 support
+- Tolerant with the weird data
+- Written in TypeScript
 
-```javascript
+```js
 import * as CSV from 'csv-string';
 
 // with String
@@ -19,9 +19,9 @@ const str = CSV.stringify(arr);
 
 // with Stream
 const stream = CSV.createStream();
-stream.on('data', (rows) => {
-    process.stdout.write(CSV.stringify(rows, ','));
-})
+stream.on('data', rows => {
+  process.stdout.write(CSV.stringify(rows, ','));
+});
 process.stdin.pipe(stream);
 ```
 
@@ -41,53 +41,56 @@ process.stdin.pipe(stream);
 
 ## Installation
 
-With [npm](http://npmjs.org):
+using [npm](http://npmjs.org):
 
 ```bash
 npm install csv-string
 ```
 
-## Tests
-
-Use [mocha](https://github.com/visionmedia/mocha) to run the tests.
+or [yarn](https://yarnpkg.com/)
 
 ```bash
-npm install mocha
-mocha test
+yarn add csv-string
 ```
 
 ## API Documentation
 
-### parse(input : String, [separator : String], [quote : String]) : Object
+### parse(input: string, [separator: string], [quote: string]): Object
 
 Converts a CSV string `input` to array output.
 
-```javascript
-var CSV = require('csv-string'),
-
-arr = CSV.parse('a,b,c\na,b,c');
-
-console.log(arr);
+```js
+const CSV = require('csv-string');
+const parsedCsv = CSV.parse('a,b,c\na,b,c');
+console.log(parsedCsv);
 ```
 
 Output:
 
 ```json
-[ [ 'a', 'b', 'c' ], [ 'a', 'b', 'c' ] ]
+[
+  ["a", "b", "c"],
+  ["a", "b", "c"]
+]
 ```
 
 If separator parameter is not provided, it is automatically detected.
 
-### stringify(input : Object, [separator : String]) : String
+### stringify(input: Object, [separator: string]): string
 
 Converts object `input` to a CSV string.
 
-```javascript
-var CSV = require('csv-string');
+```js
+import * as CSV from 'csv-string';
 
 console.log(CSV.stringify(['a', 'b', 'c']));
-console.log(CSV.stringify([['c', 'd', 'e'], ['c','d','e']]));
-console.log(CSV.stringify({a:'e', b:'f', c:'g'}));
+console.log(
+  CSV.stringify([
+    ['c', 'd', 'e'],
+    ['c', 'd', 'e']
+  ])
+);
+console.log(CSV.stringify({ a: 'e', b: 'f', c: 'g' }));
 ```
 
 Output:
@@ -101,12 +104,12 @@ c,d,e
 e,f,g
 ```
 
-### detect(input : String) : String
+### detect(input: string): string
 
 Detects the best separator.
 
-```javascript
-var CSV = require('csv-string');
+```js
+import * as CSV from 'csv-string';
 
 console.log(CSV.detect('a,b,c'));
 console.log(CSV.detect('a;b;c'));
@@ -123,19 +126,22 @@ Output:
 \t
 ```
 
-### forEach(input : String, sep : String, quo : String, callback : Function)
-### forEach(input : String, sep : String, callback : Function)
-### forEach(input : String, callback : Function)
-_callback(row : Array, index : Number) : undefined_
+### forEach(input: string, sep: string, quo: string, callback: function)
+
+### forEach(input: string, sep: string, callback: function)
+
+### forEach(input: string, callback: function)
+
+_callback(row: array, index: number): void_
 
 Calls `callback` for each CSV row/line. The Array passed to callback contains the fields of the current row.
 
-```javascript
-var CSV = require('csv-string');
+```js
+import * as CSV from 'csv-string';
 
-var data = 'a,b,c\nd,e,f';
+const data = 'a,b,c\nd,e,f';
 
-CSV.forEach(data, ',', function(row, index) {
+CSV.forEach(data, ',', function (row, index) {
   console.log('#' + index + ' : ', row);
 });
 ```
@@ -147,20 +153,23 @@ Output:
 #1 :  [ 'd', 'e', 'f' ]
 ```
 
-### read(input : String, sep : String, quo : String, callback : Function) : Number
-### read(input : String, sep : String, callback : Function) : Number
-### read(input : String, callback : Function) : Number
-_callback(row : Array) : undefined_
+### read(input: string, sep: string, quo: string, callback: function): number
+
+### read(input: string, sep: string, callback: function): number
+
+### read(input: string, callback: function): number
+
+_callback(row: array): void_
 
 Calls `callback` when a CSV row is read. The Array passed to callback contains the fields of the row.
 Returns the first offset after the row.
 
-```javascript
-var CSV = require('csv-string');
+```js
+import * as CSV from 'csv-string';
 
-var data = 'a,b,c\nd,e,f';
+const data = 'a,b,c\nd,e,f';
 
-var index = CSV.read(data, ',', function(row) {
+const index = CSV.read(data, ',', row => {
   console.log(row);
 });
 
@@ -174,20 +183,23 @@ Output:
 d,e,f
 ```
 
-### readAll(input : String, sep : String, quo : String, callback : Function) : Number
-### readAll(input : String, sep : String, callback : Function) : Number
-### readAll(input : String, callback : Function) : Number
-_callback(rows : Array) : undefined_
+### readAll(input: string, sep: string, quo: string, callback: function): number
+
+### readAll(input: string, sep: string, callback: function): number
+
+### readAll(input: string, callback: function): number
+
+_callback(rows: array): void_
 
 Calls `callback` when all CSV rows are read. The Array passed to callback contains the rows of the file.
 Returns the offset of the end of parsing (generaly it's the end of the input string).
 
-```javascript
-var CSV = require('csv-string');
+```js
+import * as CSV from 'csv-string';
 
-var data = 'a,b,c\nd,e,f';
+const data = 'a,b,c\nd,e,f';
 
-var index = CSV.readAll(data, function(row) {
+const index = CSV.readAll(data, row => {
   console.log(row);
 });
 
@@ -201,21 +213,24 @@ Output:
 --
 ```
 
-### readChunk(input : String, sep : String, quo : String, callback : Function) : Number
-### readChunk(input : String, sep : String, callback : Function) : Number
-### readChunk(input : String, callback : Function) : Number
-_callback(rows : Array) : undefined_
+### readChunk(input: string, sep: string, quo: string, callback: function): number
+
+### readChunk(input: string, sep: string, callback: function): number
+
+### readChunk(input: string, callback: function): number
+
+_callback(rows: array): void_
 
 Calls `callback` when all CSV rows are read. The last row could be ignored, because the remainder could be in another chunk.
 The Array passed to callback contains the rows of the file.
 Returns the offset of the end of parsing. If the last row is ignored, the offset will point to the beginnning of the row.
 
-```javascript
-var CSV = require('csv-string');
+```js
+import * as CSV from 'csv-string';
 
-var data = 'a,b,c\nd,e';
+const data = 'a,b,c\nd,e';
 
-var index = CSV.readChunk(data, function(row) {
+const index = CSV.readChunk(data, row => {
   console.log(row);
 });
 
@@ -229,55 +244,65 @@ Output:
 --
 ```
 
-### createStream(options : Object) : WritableStream
-### createStream() : WritableStream
+### createStream(options: Object): WritableStream
+
+### createStream(): WritableStream
 
 Create a writable stream for CSV chunk. Options are :
 
 - **separator** : To indicate the CSV separator. By default is auto (see the detect function)
-- quote** : To indicate the CSVquote.
+- quote\*\* : To indicate the CSVquote.
 
 Example : Read CSV file from the standard input.
 
-```javascript
-var stream = CSV.createStream();
+```js
+const stream = CSV.createStream();
 
-stream.on('data', function (row) {
-     console.log(row);
-  }
-)
+stream.on('data', row => {
+  console.log(row);
+});
 
 process.stdin.resume();
 process.stdin.setEncoding('utf8');
 process.stdin.pipe(stream);
 ```
 
+## Contribution
+
+- `clone`
+- `yarn install`
+- ... do the changes, write tests
+- `yarn test` (ensure all tests pass)
+- `yarn bench` (to check the performance impact)
+
 ## Related projects
 
 - <https://npmjs.org/browse/keyword/csv>
-- <http://www.uselesscode.org/javascript/csv/>
+- <http://www.uselesscode.org/js/csv/>
 - <https://github.com/archan937/csonv.js>
 
 ## Benchmark
 
-I made a very basic benchmark to compare this project to other related projects, using file streams as input. See `./bench` for source code.
+There is a quite basic benchmark to compare this project to other related ones, using file streams as input. See `./bench` for source code.
 
 ### the test
 
 ```bash
-time node ./SCRITPNAME.js >/dev/null
+yarn bench
 ```
 
 ### the result
 
-| Package        | Input equal Output | Time for ~1 200 000 rows |
-| ---------------|--------------------|--------------------------|
-| a-csv          | almost             | 0m13.903s                |
-| csv-streamer   | yes                | 0m15.599s                |
-| csv-stream     | yes                | 0m17.265s                |
-| **csv-string** | **yes**            | **0m15.432s**            |
-| fast-csv       | no                 | -                        |
-| nodecsv        | yes                | 0m22.129s                |
+for a test file with 949,044 rows
+
+| Package        | Time      | Output/Input similarity |
+| -------------- | --------- | ----------------------- |
+| a-csv          | 6.01s     | ~99%                    |
+| csv-stream     | 6.64s     | ~73%                    |
+| csv-streamer   | 7.03s     | ~79%                    |
+| **csv-string** | **6.53s** | **100%**                |
+| fast-csv       | 12.33s    | 99.99%                  |
+| nodecsv        | 7.10s     | 100%                    |
 
 ## License
 

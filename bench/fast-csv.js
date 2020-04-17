@@ -1,13 +1,13 @@
-var CSV = require(__dirname + '/..')
+const { createReadStream } = require('fs');
 
-var fs = require('fs');
-var stream = fs.createReadStream("./twitter.csv");
+const fastcsv = require('fast-csv');
 
-var fastcsv = require("fast-csv");
+const CSV = require('..');
 
-fastcsv(stream, {headers : true})
- .on("data", function(data){
-     process.stdout.write(CSV.stringify(data));
-   }
- )
- .parse();
+const FILE = `${__dirname}/twitter.csv`;
+
+createReadStream(FILE)
+  .pipe(fastcsv.parse({ headers: true }))
+  .on('data', (data) => {
+    process.stdout.write(CSV.stringify(data));
+  });
