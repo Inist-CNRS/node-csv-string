@@ -1,6 +1,6 @@
 {
 	"name": "csv-string",
-	"version": "4.0.0",
+	"version": "4.0.1",
 	"description": "PARSE and STRINGIFY for CSV strings. It's like JSON object but for CSV. It can also work row by row. And, if can parse strings, it can be use to parse files or streams too.",
 	"keywords": [
 		"csv",
