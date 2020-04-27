@@ -192,7 +192,7 @@ d,e,f
 _callback(rows: array): void_
 
 Calls `callback` when all CSV rows are read. The Array passed to callback contains the rows of the file.
-Returns the offset of the end of parsing (generaly it's the end of the input string).
+Returns the offset of the end of parsing (generally it's the end of the input string).
 
 ```js
 import * as CSV from 'csv-string';
