@@ -42,31 +42,45 @@ export class Parser {
     this._replaceQuoteRegExp = new RegExp(this.quote + this.quote, 'g');
   }
 
-  File(): Value[][] {
-    const files: Value[][] = [];
-    let row: Value[];
+  File(output: "objects"): { [k: string]: Value }[];
+  File(output?: "tuples"): Value[][];
+  File(output?: "tuples" | "objects"): { [k: string]: Value }[] | Value[][];
+  File(output?: "tuples" | "objects"): { [k: string]: Value }[] | Value[][] {
+    const rows: Value[][] = [];
     while (true) {
       const tempointer = this.pointer;
-      row = this.Row();
+      const row: Value[] = this.Row();
       if (row.length > 0) {
         this.linePointer = tempointer;
-        files.push(row);
+        rows.push(row);
       } else {
         if (this.linePointer && this.pointer !== this.input.length) {
-          files.pop();
+          rows.pop();
           this.pointer = this.linePointer;
         }
         break;
       }
       if (this.EOF()) {
         if (this.linePointer && this.pointer !== this.input.length) {
-          files.pop();
+          rows.pop();
           this.pointer = this.linePointer;
         }
         break;
       }
     }
-    return files;
+
+    if (output && output === "objects") {
+      if (rows.length === 0) {
+        return [];
+      }
+      const headers = rows.shift()!;
+      return rows.map(row => headers.reduce<{ [k: string]: Value }>((data, k, i) => {
+        data[k] = row[i]
+        return data;
+      }, {}));
+    } else {
+      return rows;
+    }
   }
 
   Row(): Value[] {

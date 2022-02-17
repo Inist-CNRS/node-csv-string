@@ -9,6 +9,7 @@ import {
   ReadAllCallback,
   ReadCallback,
   Value,
+  ParseOptions,
 } from './types';
 
 const EOL: LineBreak = '\r\n';
@@ -91,13 +92,42 @@ const stringify = (input?: PristineInput, sep: Comma = SEPARATOR): string => {
   return ret as string;
 };
 
-const parse = (input: string, sep?: Comma, quo?: Quote): Value[][] => {
-  if (sep === undefined) {
-    // try to detect the separator if not provided
-    sep = detect(input);
+function parse(input: string, sep?: Comma, quo?: Quote): Value[][];
+function parse(input: string, opts?: Partial<ParseOptions & { output: 'tuples' }>): Value[][];
+function parse(
+  input: string,
+  opts: Partial<ParseOptions> & { output: 'objects' }
+): { [k: string]: Value }[];
+function parse(
+  input: string,
+  sepOrOpts?: Comma | Partial<ParseOptions>,
+  quo?: Quote
+): Value[][] | { [k: string]: Value }[] {
+  // Create an options hash, using positional parameters or the passed in options hash for values
+  const opts: Partial<ParseOptions> = typeof sepOrOpts === "object" ? sepOrOpts : {};
+  if (typeof sepOrOpts === "string") {
+    opts.comma = sepOrOpts as Comma;
   }
-  const csv = new Parser(input, sep, quo);
-  return csv.File();
+  if (quo) {
+    opts.quote = quo as Quote;
+  }
+
+  // try to detect the separator if not provided
+  if (opts.comma === undefined) {
+    opts.comma = detect(input);
+  }
+
+  // Clean characters, if necessary
+  // TODO: We should probably throw an error here to signal bad input to the user
+  if (opts.comma) {
+    opts.comma = opts.comma[0] as Comma;
+  }
+  if (opts.quote) {
+    opts.quote = opts.quote[0] as Quote;
+  }
+
+  const csv = new Parser(input, opts.comma, opts.quote);
+  return csv.File(opts.output);
 };
 
 function read(input: string, callback: ReadCallback): number;

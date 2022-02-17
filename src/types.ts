@@ -13,3 +13,8 @@ export type PristineInput =
 export type ReadCallback = (row: Value[]) => void;
 export type ReadAllCallback = (rows: Value[][]) => void;
 export type ForEachCallback = (row: Value[], index: number) => void;
+export type ParseOptions = {
+  comma: Comma;
+  quote: Quote;
+  output: 'objects' | 'tuples';
+}
