@@ -250,6 +250,27 @@ describe('CSV', () => {
       expect(obj[1]).toEqual(['d', 'e', 'f']);
       expect(obj[2]).toEqual(['g', 'h', 'i']);
     });
+    it('should #7', () => {
+      const obj = CSV.parse('a,b,c\nd,e,f\ng,h,i', { output: "tuples" });
+      expect(obj[0]).toEqual(['a', 'b', 'c']);
+      expect(obj[1]).toEqual(['d', 'e', 'f']);
+      expect(obj[2]).toEqual(['g', 'h', 'i']);
+    });
+    it('should #8', () => {
+      const obj = CSV.parse('a,b,c\n1,2,3\n4,5,6\n7,8,9', { output: "objects" });
+      expect(obj).toHaveLength(3);
+      expect(obj[0]).toMatchObject({ a: '1', b: '2', c: '3' });
+      expect(obj[1]).toMatchObject({ a: '4', b: '5', c: '6' });
+      expect(obj[2]).toMatchObject({ a: '7', b: '8', c: '9' });
+    });
+    it('should #9', () => {
+      const obj = CSV.parse('a,b,c', { output: "objects" });
+      expect(obj).toHaveLength(0);
+    });
+    it('should #10', () => {
+      const obj = CSV.parse('', { output: "objects" });
+      expect(obj).toHaveLength(0);
+    });
   });
 
   describe('parse+stringify', () => {
