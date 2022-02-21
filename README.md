@@ -27,6 +27,7 @@ process.stdin.pipe(stream);
 
 ## Contributors
 
+- [Kael Shipman](https://github.com/kael-shipman)
 - [Mehul Mohan](https://github.com/mehulmpt)
 - [Hossam Magdy](https://github.com/hossam-magdy)
 - [Rich](https://github.com/rich-TIA)
@@ -55,13 +56,24 @@ yarn add csv-string
 
 ## API Documentation
 
+### parse(input: String, [options: Object]): Object
 ### parse(input: string, [separator: string], [quote: string]): Object
 
 Converts a CSV string `input` to array output.
 
+
+Options :
+
+-   `comma` **String** to indicate the CSV separator. (optional, default `,`)
+-   `quote` **String** to indicate the CSV quote if need. (optional, default `"`)
+-   `output` **String** choose 'objects' or 'tuples' to change output for Array or Object. (optional, default `tuples`)
+
+
+Example 1 :
+
 ```js
 const CSV = require('csv-string');
-const parsedCsv = CSV.parse('a,b,c\na,b,c');
+const parsedCsv = CSV.parse('a;b;c\nd;e;f', ';');
 console.log(parsedCsv);
 ```
 
@@ -70,9 +82,27 @@ Output:
 ```json
 [
   ["a", "b", "c"],
-  ["a", "b", "c"]
+  ["d", "e", "f"]
 ]
 ```
+
+Example 2 :
+
+```js
+const CSV = require('csv-string');
+const parsedCsv = CSV.parse('a,b,c\n1,2,3\n4,5,6', { output: 'objects' });
+console.log(parsedCsv);
+```
+
+Output:
+
+```json
+[
+  { a: '1', b: '2', c: '3' },
+  { a: '4', b: '5', c: '6' }
+]
+```
+
 
 If separator parameter is not provided, it is automatically detected.
 
