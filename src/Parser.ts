@@ -73,7 +73,7 @@ export class Parser {
       if (rows.length === 0) {
         return [];
       }
-      const headers = rows.shift()!;
+      const headers = rows.shift()!.map(k => k.trim());
       return rows.map(row => headers.reduce<{ [k: string]: Value }>((data, k, i) => {
         data[k] = row[i]
         return data;
