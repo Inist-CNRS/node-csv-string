@@ -286,6 +286,17 @@ describe('CSV', () => {
         [ "4", " 5", " 6" ],
       ]);
     });
+    it("should #13", () => {
+      const obj = CSV.parse("a^ b^ c\n1^ 2^ 3\n4^ 5^ 6", {
+        output: "tuples",
+        comma: "^",
+      });
+      expect(obj).toMatchObject([
+        ["a", " b", " c"],
+        ["1", " 2", " 3"],
+        ["4", " 5", " 6"],
+      ]);
+    });
   });
 
   describe('parse+stringify', () => {

@@ -38,7 +38,7 @@ export class Parser {
     }
     this._residueRegExp = new RegExp(`[^${residueChars}]`);
     // TODO: `(${this.comma}|\r\n)` instead?
-    this._simpleValueRegExp = new RegExp(`[${this.comma}\r\n]`);
+    this._simpleValueRegExp = new RegExp(`[\\${this.comma}\r\n]`);
     this._replaceQuoteRegExp = new RegExp(this.quote + this.quote, 'g');
   }
 
